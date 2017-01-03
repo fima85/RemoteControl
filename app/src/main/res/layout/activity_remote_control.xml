@@ -1,0 +1,231 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context="com.matigurten.tom.remotecontrol.RemoteControlActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+<!--
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/dummy_content"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+-->
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:id="@+id/frame">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            android:id="@+id/powerbuttons">
+
+            <LinearLayout
+                android:id="@+id/powerForwardButtons"
+                style="?metaButtonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+                <Button
+                    android:text=""
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pflButton"
+                    android:onClick="pflButtonOnClick" />
+                <Button
+                    android:text=""
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pfButton"
+                    android:onClick="pfButtonOnClick" />
+                <Button
+                    android:text=""
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pfrButton"
+                    android:onClick="pfrButtonOnClick" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/powerTurnButtons"
+                style="?metaButtonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+
+                tools:ignore="UselessParent">
+                <Button
+                    android:text=""
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/plButton"
+                    android:onClick="plButtonOnClick" />
+                <Button
+                    android:text=""
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pstopButton"
+                    android:onClick="pstopButtonOnClick" />
+                <Button
+                    android:text=""
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/prButton"
+                    android:onClick="prButtonOnClick" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/powerBackButtons"
+                style="?metaButtonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+                <Button
+                    android:text=""
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pblButton"
+                    android:onClick="pblButtonOnClick" />
+                <Button
+                    android:text=""
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pbButton"
+                    android:onClick="pbButtonOnClick" />
+
+                <Button
+                    android:text=""
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pbrButton"
+                    android:onClick="pbrButtonOnClick" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:id="@+id/frame">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            android:id="@+id/buttons">
+
+            <LinearLayout
+                android:id="@+id/fButtons"
+                style="?metaButtonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+                <Button
+                    android:text="Forward Left"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/flButton"
+                    android:onClick="flButtonOnClick" />
+                <Button
+                    android:text="Forward"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fButton"
+                    android:onClick="fButtonOnClick" />
+                <Button
+                    android:text="Forward Right"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/frButton"
+                    android:onClick="frButtonOnClick" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/turnButtons"
+                style="?metaButtonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+
+                tools:ignore="UselessParent">
+                <Button
+                    android:text="Left"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/lButton"
+                    android:onClick="lButtonOnClick" />
+                <Button
+                    android:text="STOP"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/stopButton"
+                    android:onClick="stopButtonOnClick" />
+                <Button
+                    android:text="Right"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rButton"
+                    android:onClick="rButtonOnClick" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/backButtons"
+                style="?metaButtonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+                <Button
+                    android:text="Back Left"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/blButton"
+                    android:onClick="blButtonOnClick" />
+                <Button
+                    android:text="Back"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/bButton"
+                    android:onClick="bButtonOnClick" />
+
+                <Button
+                    android:text="Back Right"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/brButton"
+                    android:onClick="brButtonOnClick" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
