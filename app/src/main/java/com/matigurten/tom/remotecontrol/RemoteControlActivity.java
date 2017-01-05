@@ -1,5 +1,6 @@
 package com.matigurten.tom.remotecontrol;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -94,6 +95,8 @@ public class RemoteControlActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_remote_control);
 
+
+
         mVisible = true;
         mControlsView = findViewById(R.id.fButtons);
         mContentView = findViewById(R.id.frame);
@@ -145,6 +148,9 @@ public class RemoteControlActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.buttons).setOnTouchListener(mDelayHideTouchListener);
+
+        Intent i = new Intent(RemoteControlActivity.this, SettingsActivity.class);
+        startActivity(i);
     }
 
 //    @Override
@@ -198,6 +204,12 @@ public class RemoteControlActivity extends AppCompatActivity {
 //    private void delayedHide(int delayMillis) {
 //        mHideHandler.removeCallbacks(mHideRunnable);
 //        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+//    }
+
+//    @Override
+//    protected  void onResume(){
+////        Intent i = new Intent(RemoteControlActivity.this, SettingsActivity.class);
+////        startActivity(i);
 //    }
 
     public void flButtonOnClick(View v) {
