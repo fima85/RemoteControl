@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -28,16 +29,17 @@ public class BLConn {
     public static final String ADDRESS = "deviceAddress";
     private String error = null;
     private boolean isError = false;
-
+    private Context appContext;
     public static BLConn getInstance() {
         return ourInstance;
     }
 
     public void connect(Context context) throws Error{
 
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);        String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//        String name = prefs.getString(ADDRESS, "No name defined");//"No name defined" is the default value.
         address = prefs.getString(ADDRESS, null);
-
+        appContext = context;
         if (address == null){
             throw new Error("need to set device address");
         }
@@ -66,5 +68,27 @@ public class BLConn {
 
     private BLConn() {
 
+    }
+
+    public void f(String msg){
+        if (btConn!=null)
+        {
+            try
+            {
+                msg += "\n";
+                btConn.getOutputStream().write(msg.getBytes());
+            }
+            catch (IOException e)
+            {
+               Log.e(TAG, "failed: " + e.getMessage());
+            }
+            byte[] buf = new byte[1024];
+            try {
+                int res = btConn.getInputStream().read(buf);
+                Toast.makeText(appContext, new String(buf), Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

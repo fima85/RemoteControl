@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,6 +52,19 @@ public class SettingsActivity extends AppCompatActivity {
 
         pairedDevicesList();
 
+        final View Button = findViewById(R.id.button);
+        Button.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() == MotionEvent.ACTION_DOWN)
+                    BLConn.getInstance().f("set");
+                else
+                    BLConn.getInstance().f("release");
+                return true;
+            }
+        });
+
     }
 
     private void pairedDevicesList()
@@ -89,9 +103,18 @@ public class SettingsActivity extends AppCompatActivity {
             editor.commit();
 
             Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
+            BLConn blConn = BLConn.getInstance();
+            try{
+                blConn.connect(getApplicationContext());
+            }
+            catch (Error e){
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
 
         }
     };
+
+
 
 }
 

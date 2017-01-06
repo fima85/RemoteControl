@@ -149,8 +149,8 @@ public class RemoteControlActivity extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.buttons).setOnTouchListener(mDelayHideTouchListener);
 
-        Intent i = new Intent(RemoteControlActivity.this, SettingsActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(RemoteControlActivity.this, SettingsActivity.class);
+//        startActivity(i);
     }
 
 //    @Override
