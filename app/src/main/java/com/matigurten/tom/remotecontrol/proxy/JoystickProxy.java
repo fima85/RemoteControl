@@ -1,7 +1,5 @@
 package com.matigurten.tom.remotecontrol.proxy;
 
-import android.util.Log;
-
 import com.matigurten.util.MathUtils;
 
 /**
