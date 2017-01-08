@@ -1,4 +1,4 @@
-package com.matigurten.tom.remotecontrol.Proxy;
+package com.matigurten.tom.remotecontrol.proxy;
 
 import android.util.Log;
 

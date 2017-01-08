@@ -1,6 +1,5 @@
 package com.matigurten.tom.remotecontrol;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -8,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.matigurten.tom.remotecontrol.Proxy.LogProxy;
-import com.matigurten.tom.remotecontrol.Proxy.RemoteProxy;
+import com.matigurten.tom.remotecontrol.proxy.LogProxy;
+import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

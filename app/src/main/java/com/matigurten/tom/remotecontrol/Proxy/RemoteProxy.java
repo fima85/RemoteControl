@@ -1,4 +1,4 @@
-package com.matigurten.tom.remotecontrol.Proxy;
+package com.matigurten.tom.remotecontrol.proxy;
 
 /**
  * Created by Mati on 25/12/2016.

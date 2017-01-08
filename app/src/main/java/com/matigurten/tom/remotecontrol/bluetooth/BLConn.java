@@ -1,4 +1,4 @@
-package com.matigurten.tom.remotecontrol;
+package com.matigurten.tom.remotecontrol.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+
 import java.util.ArrayList;
 import java.util.Set;
 

@@ -20,7 +20,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.matigurten.tom.remotecontrol.Proxy.JoystickProxy;
+import com.matigurten.tom.remotecontrol.proxy.JoystickProxy;
 import com.matigurten.util.BitmapUtils;
 
 import java.util.LinkedList;
