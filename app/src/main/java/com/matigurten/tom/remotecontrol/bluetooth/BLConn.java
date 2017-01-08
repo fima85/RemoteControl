@@ -40,6 +40,7 @@ public class BLConn implements RemoteProxy {
     }
 
     Thread btThread;
+
     private String lastCommand = null;
 
     public void connect(final Context context) throws Exception {
@@ -120,21 +121,18 @@ public class BLConn implements RemoteProxy {
 
 
     private void sendCommand(String cmd) {
-
-        if (btConn != null) {
+        if (btConn != null && !cmd.equals(lastCommand)) {
             try {
-//                cmd += "\n";
                 btConn.getOutputStream().write(cmd.getBytes());
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                lastCommand = cmd;
             } catch (IOException e) {
                 Log.e(TAG, "failed: " + e.getMessage());
             }
-//            byte[] buf = new byte[1024];
-//            try {
-//                int res = btConn.getInputStream().read(buf);
-//                Toast.makeText(appContext, new String(buf), Toast.LENGTH_SHORT).show();
-//            } catch (IOException e) {
-//                Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
         }
     }
 }

@@ -16,8 +16,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
         try {
-            Thread.sleep(5000); //
+            Thread.sleep(2000); //
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
