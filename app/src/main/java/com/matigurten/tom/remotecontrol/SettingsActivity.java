@@ -32,11 +32,29 @@ public class SettingsActivity extends AppCompatActivity {
     HashMap<String, String> deviceHash;
     private static final String TAG = "SettingsActivity";
 
+    String[] remoteTypes = new String[] {
+    "Joystick",
+    "Buttons"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        // Getting object reference to listview of main.xml
+        ListView listView = (ListView) findViewById(R.id.remoteType);
+
+        // Instantiating array adapter to populate the listView
+        // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice,remoteTypes);
+
+        listView.setAdapter(adapter);
+
+//        TextView tv = (TextView)listView.getAdapter();
+////        tv.setTextColor(Color.RED);
+//        tv.setTextSize(12);
+//        adapter.notifyDataSetChanged();
 
         devicelist = (ListView)findViewById(R.id.listView);
         deviceHash = new HashMap<String, String>();
@@ -58,19 +76,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         pairedDevicesList();
-
-        final View Button = findViewById(R.id.button);
-        Button.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() == MotionEvent.ACTION_DOWN)
-                    BLConn.getInstance().f(false);
-                else
-                    BLConn.getInstance().f(false);
-                return true;
-            }
-        });
 
     }
 

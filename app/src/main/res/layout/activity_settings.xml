@@ -12,16 +12,13 @@
     tools:context=".SettingsActivity"
     android:background="#ffffff">
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Paired Devices"-->
-        <!--android:id="@+id/textView"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:textColor="#ffffff"-->
-        <!--android:textIsSelectable="false" />-->
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/text1"
+        android:paddingTop="2dip"
+        android:paddingBottom="3dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="2dp" />
 
 
 
@@ -30,12 +27,13 @@
         android:id="@+id/listView"
         android:layout_height="220dp" />
 
-    <Button
-        android:text="Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ListView
+        android:id="@+id/remoteType"
+        android:layout_width="fill_parent"
+        android:choiceMode="singleChoice"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="92dp"
-        android:id="@+id/button" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="240dp" />
+
 </RelativeLayout>
