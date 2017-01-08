@@ -14,6 +14,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,7 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class JoystickActivity extends Activity implements View.OnTouchListener {
+public class JoystickActivity extends AppCompatActivity implements View.OnTouchListener {
 
     private Joystick joystick;
     private Bitmap arrowBmp, stopBmp;
@@ -35,7 +36,7 @@ public class JoystickActivity extends Activity implements View.OnTouchListener {
     private float touchX, touchY;
 
     private int sleep = 6;
-    private static int sleepTimeMillis = 50;
+    private static int sleepTimeMillis = 1;
     private int fieldRadius;
     private int minRadius;
 
@@ -181,19 +182,11 @@ public class JoystickActivity extends Activity implements View.OnTouchListener {
 
         private void redraw() {
             // perform canvas drawing
-            if (!holder.getSurface().isValid()) {
+            if (!holder.getSurface().isValid() || !isInit) {
                 return;
             }
             Canvas c = holder.lockCanvas();
-//                if (!isInBounds(c)) {
-//                    isGameOver = true;
-//                }
-//                if (!isGameOver) {
-//                    centerX += adhd * (Math.random() * 2 - 1); // (MathUtils.random(-1 , 1)
-//                    centerY += adhd * (Math.random() * 2 - 1);
-//                    path.add(new float[]{centerX, centerY});
-            // Add random noise to orientation
-//                    orientation += Math.toRadians(adhd * (Math.random() * 2 - 1));
+
             Bitmap bitmap = getBitMap();
             Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
             Rect dst = new Rect(
@@ -204,12 +197,13 @@ public class JoystickActivity extends Activity implements View.OnTouchListener {
             // Paint background
             c.drawARGB(255, 150, 150, 150);
             // fast oval
-            c.drawArc(oval, 0, 360, true, getDistance() > fieldRadius ? yellow : blue);
-            if (orientation != null) {
-                c.drawArc(oval, (float) (Math.toDegrees(orientation) - angularField / 2), (float) angularField, true, getDistance() > fieldRadius ? red : green);
+            double distance = getDistance();
+            c.drawArc(oval, 0, 360, true, distance > fieldRadius ? yellow : blue);
+            if (orientation != null && distance > 100) {
+                c.drawArc(oval, (float) (Math.toDegrees(orientation) - angularField / 2), (float) angularField, true, distance > fieldRadius ? red : green);
 
                 float quadrantAngleStart = (float) (Math.floor((Math.toDegrees(orientation) - 22.5f) / 45) * 45) + 22.5f;
-                c.drawArc(oval, quadrantAngleStart, 45, true, getDistance() > fieldRadius ? red : green);
+                c.drawArc(oval, quadrantAngleStart, 45, true, distance > fieldRadius ? red : green);
             }
 
             c.drawBitmap(bitmap, src, dst, null);
@@ -274,28 +268,20 @@ public class JoystickActivity extends Activity implements View.OnTouchListener {
         private void reset() {
             Canvas c = holder.lockCanvas();
             reset(c);
-proxy.stop();
-//            Bitmap stopBmp = JoystickActivity.this.stopBmp;
-//            Rect src = new Rect(0, 0, stopBmp.getWidth(), stopBmp.getHeight());
-//            Rect dst = new Rect(
-//                    (int) (centerX - stopBmp.getWidth() / 2),
-//                    (int) (centerY - stopBmp.getHeight() / 2),
-//                    (int) (centerX + stopBmp.getWidth() / 2),
-//                    (int) (centerY + stopBmp.getHeight() / 2));
-            if (c != null) //{
-//                c.drawARGB(255, 150, 150, 150);
-////            drawPath(c);
-//
-//                c.drawBitmap(stopBmp, src, dst, null);
-//            }
+            proxy.stop();
+            if (c != null)
                 holder.unlockCanvasAndPost(c);
         }
 
+        boolean isInit = false;
+
         private void reset(Canvas c) {
             if (c != null && (startPointX == 0 || startPointY == 0)) {
+
                 startPointX = c.getWidth() / 2;
                 startPointY = c.getHeight() / 2;
                 oval.set(startPointX - fieldRadius, startPointY - fieldRadius, startPointX + fieldRadius, startPointY + fieldRadius);
+                isInit = true;
             }
             centerX = startPointX;
             centerY = startPointY;

@@ -18,7 +18,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by fima on 05/01/17.
  */
-public class BLConn implements RemoteProxy{
+public class BLConn implements RemoteProxy {
     private static BLConn ourInstance = new BLConn();
 
     BluetoothAdapter myBluetooth = null;
@@ -32,22 +32,21 @@ public class BLConn implements RemoteProxy{
     private String error = null;
     private boolean isError = false;
     private Context appContext;
+
     public static BLConn getInstance() {
         return ourInstance;
     }
 
-    public void connect(Context context) throws Error{
+    public void connect(Context context) throws Error {
 
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         address = prefs.getString(ADDRESS, null);
         appContext = context;
-        if (address == null){
+        if (address == null) {
             throw new Error("need to set device address");
         }
-        try
-        {
-            if (btConn == null || !isBtConnected)
-            {
+        try {
+            if (btConn == null || !isBtConnected) {
                 myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
                 BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
                 btConn = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
@@ -55,12 +54,10 @@ public class BLConn implements RemoteProxy{
                 btConn.connect();//start connection
                 isBtConnected = true;
             }
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             error = e.getMessage();
             isError = false;
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
             throw new Error("failed to connect");
 //           ConnectSuccess = false;//if the try failed, you can check the exception here
         }
@@ -71,53 +68,49 @@ public class BLConn implements RemoteProxy{
 
     }
 
-    public void fl(boolean fast){
-        sendCommand("fl");
+    public void stop() {
+        sendCommand("AAaE");
     }
 
-    public void f(boolean fast){
-        sendCommand("f");
+    public void f(boolean fast) {
+        sendCommand(!fast ? "AAbE" : "AAkE");
     }
 
-    public void fr(boolean fast){
-        sendCommand("fr");
+    public void fl(boolean fast) {
+        sendCommand(!fast ? "AAcE" : "AAlE");
     }
 
-    public void r(boolean fast){
-       sendCommand("r");
+    public void l(boolean fast) {
+        sendCommand(!fast ? "AAdE" : "AAmE");
     }
 
-    public void stop(){
-        sendCommand("stop");
-    }
-    public void l(boolean fast){
-        sendCommand("l");
+    public void bl(boolean fast) {
+        sendCommand(!fast ? "AAeE" : "AAnE");
     }
 
-    public void br(boolean fast){
-        sendCommand("br");
+    public void b(boolean fast) {
+        sendCommand(!fast ? "AAfE" : "AAoE");
     }
 
-    public void b(boolean fast){
-        sendCommand("b");
+    public void br(boolean fast) {
+        sendCommand(!fast ? "AAgE" : "AApE");
     }
 
-    public void bl(boolean fast){
-        sendCommand("bl");
+    public void r(boolean fast) {
+        sendCommand(!fast ? "AAhE" : "AAqE");
     }
 
+    public void fr(boolean fast) {
+        sendCommand(!fast ? "AAiE" : "AArE");
+    }
 
-    private void sendCommand(String cmd){
+    private void sendCommand(String cmd) {
 
-        if (btConn!=null)
-        {
-            try
-            {
+        if (btConn != null) {
+            try {
                 cmd += "\n";
                 btConn.getOutputStream().write(cmd.getBytes());
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 Log.e(TAG, "failed: " + e.getMessage());
             }
             byte[] buf = new byte[1024];

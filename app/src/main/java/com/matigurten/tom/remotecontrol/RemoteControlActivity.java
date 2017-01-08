@@ -1,8 +1,6 @@
 package com.matigurten.tom.remotecontrol;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,119 +9,26 @@ import android.widget.Toast;
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
 import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 public class RemoteControlActivity extends AppCompatActivity {
 
     RemoteProxy remote = BLConn.getInstance();
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
-
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private BLConn blConn = BLConn.getInstance();
-    //    private final Runnable mHidePart2Runnable = new Runnable() {
-//        @SuppressLint("InlinedApi")
-//        @Override
-//        public void run() {
-//            // Delayed removal of status and navigation bar
-//
-//            // Note that some of these constants are new as of API 16 (Jelly Bean)
-//            // and API 19 (KitKat). It is safe to use them, as they are inlined
-//            // at compile-time and do nothing on earlier devices.
-//            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-//                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-//                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-//        }
-//    };
-    private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
-    private boolean mVisible;
-//    private final Runnable mHideRunnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            hide();
-//        }
-//    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-//                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_remote_control);
-        try{
-            blConn.connect(getApplicationContext());
-        }
-        catch (Error e){
+        try {
+            BLConn.getInstance().connect(getApplicationContext());
+        } catch (Error e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-
-        mVisible = true;
-        mControlsView = findViewById(R.id.fButtons);
-        mContentView = findViewById(R.id.frame);
-
-
-        final View frButton = findViewById(R.id.frButton);
-        frButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() == MotionEvent.ACTION_DOWN)
-                    frButtonOnClick(frButton);
-                else
-                    stopButtonOnClick(frButton);
-                return true;
-            }
-        });
         final View fButton = findViewById(R.id.fButton);
         fButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() == MotionEvent.ACTION_DOWN)
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
                     fButtonOnClick(fButton);
                 else
                     stopButtonOnClick(fButton);
@@ -134,7 +39,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         flButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() == MotionEvent.ACTION_DOWN)
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
                     fButtonOnClick(fButton);
                 else
                     stopButtonOnClick(fButton);
@@ -142,81 +47,75 @@ public class RemoteControlActivity extends AppCompatActivity {
             }
         });
 
-        // Set up the user interaction to manually show or hide the system UI.
-//        mContentView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                toggle();
-//            }
-//        });
+        final View lButton = findViewById(R.id.lButton);
+        lButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    lButtonOnClick(lButton);
+                else
+                    stopButtonOnClick(lButton);
+                return true;
+            }
+        });
+        final View blButton = findViewById(R.id.blButton);
+        blButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    blButtonOnClick(blButton);
+                else
+                    stopButtonOnClick(blButton);
+                return true;
+            }
+        });
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.buttons).setOnTouchListener(mDelayHideTouchListener);
+        final View bButton = findViewById(R.id.bButton);
+        bButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    bButtonOnClick(bButton);
+                else
+                    stopButtonOnClick(bButton);
+                return true;
+            }
+        });
+        final View brButton = findViewById(R.id.brButton);
+        brButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    brButtonOnClick(brButton);
+                else
+                    stopButtonOnClick(brButton);
+                return true;
+            }
+        });
 
-//        Intent i = new Intent(RemoteControlActivity.this, SettingsActivity.class);
-//        startActivity(i);
+        final View rButton = findViewById(R.id.rButton);
+        rButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    rButtonOnClick(rButton);
+                else
+                    stopButtonOnClick(rButton);
+                return true;
+            }
+        });
+        final View frButton = findViewById(R.id.frButton);
+        frButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    frButtonOnClick(frButton);
+                else
+                    stopButtonOnClick(frButton);
+                return true;
+            }
+        });
     }
-
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-
-    // Trigger the initial hide() shortly after the activity has been
-    // created, to briefly hint to the user that UI controls
-    // are available.
-//        delayedHide(100);
-//    }
-
-//    private void toggle() {
-//        if (mVisible) {
-//            hide();
-//        } else {
-//            show();
-//        }
-//    }
-
-//    private void hide() {
-//        // Hide UI first
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.hide();
-//        }
-//        mControlsView.setVisibility(View.GONE);
-//        mVisible = false;
-//
-//        // Schedule a runnable to remove the status and navigation bar after a delay
-//        mHideHandler.removeCallbacks(mShowPart2Runnable);
-//        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-//    }
-//
-//    @SuppressLint("InlinedApi")
-//    private void show() {
-//        // Show the system bar
-//        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-//        mVisible = true;
-//
-//        // Schedule a runnable to display UI elements after a delay
-////        mHideHandler.removeCallbacks(mHidePart2Runnable);
-////        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-//    }
-//
-//    /**
-//     * Schedules a call to hide() in [delay] milliseconds, canceling any
-//     * previously scheduled calls.
-//     */
-//    private void delayedHide(int delayMillis) {
-//        mHideHandler.removeCallbacks(mHideRunnable);
-//        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-//    }
-
-//    @Override
-//    protected  void onResume(){
-////        Intent i = new Intent(RemoteControlActivity.this, SettingsActivity.class);
-////        startActivity(i);
-//    }
 
     public void flButtonOnClick(View v) {
         remote.fl(false);
