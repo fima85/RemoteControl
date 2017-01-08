@@ -116,9 +116,9 @@ public class BLConn implements RemoteProxy {
             byte[] buf = new byte[1024];
             try {
                 int res = btConn.getInputStream().read(buf);
-                Toast.makeText(appContext, new String(buf), Toast.LENGTH_LONG).show();
+                Toast.makeText(appContext, new String(buf), Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
-                Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
