@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+import com.matigurten.tom.remotecontrol.common.SharedPref;
 import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
 import java.util.ArrayList;
@@ -32,24 +33,32 @@ public class SettingsActivity extends AppCompatActivity {
     HashMap<String, String> deviceHash;
     private static final String TAG = "SettingsActivity";
 
-    String[] remoteTypes = new String[] {
-    "Joystick",
-    "Buttons"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
         // Getting object reference to listview of main.xml
-        ListView listView = (ListView) findViewById(R.id.remoteType);
+        final ListView listView = (ListView) findViewById(R.id.remoteType);
 
         // Instantiating array adapter to populate the listView
         // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice,remoteTypes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice,SharedPref.remoteTypes);
 
+        int pos = SharedPref.getRemotePos(this);
         listView.setAdapter(adapter);
+        listView.setItemChecked(pos, true);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                listView.setItemChecked(position, true);
+                SharedPref.setRemotePos(getApplicationContext(), position);
+                }
+
+        });
 
 //        TextView tv = (TextView)listView.getAdapter();
 ////        tv.setTextColor(Color.RED);
