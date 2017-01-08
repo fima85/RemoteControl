@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,17 +16,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 
-public class SettingsActivity  extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     ListView devicelist;
     //Bluetooth
     private BluetoothAdapter myBluetooth = null;
     private Set<BluetoothDevice> pairedDevices;
+    HashMap<String, String> deviceHash;
+    private static final String TAG = "SettingsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,7 @@ public class SettingsActivity  extends AppCompatActivity {
 
 
         devicelist = (ListView)findViewById(R.id.listView);
-
+        deviceHash = new HashMap<String, String>();
         //if the device has bluetooth
         myBluetooth = BluetoothAdapter.getDefaultAdapter();
 
@@ -78,7 +83,9 @@ public class SettingsActivity  extends AppCompatActivity {
         {
             for(BluetoothDevice bt : pairedDevices)
             {
-                list.add(bt.getName() + "\n" + bt.getAddress()); //Get the device's name and the address
+                list.add(bt.getName() /*+ "\n" + bt.getAddress()*/); //Get the device's name and the address
+                deviceHash.put(bt.getName(), bt.getAddress());
+                Log.d(TAG, bt.getName() + "  " + bt.getAddress());
             }
         }
         else
@@ -98,16 +105,20 @@ public class SettingsActivity  extends AppCompatActivity {
         {
             // Get the device MAC address, the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
-            String address = info.substring(info.length() - 17);
+            String address = deviceHash.get(info);
 
+            Log.d(TAG, "added " + info + " with address " + address);
             SharedPreferences.Editor editor = getSharedPreferences(BLConn.getInstance().PREFS_NAME, MODE_PRIVATE).edit();
             editor.putString(BLConn.getInstance().ADDRESS, address);
             editor.commit();
+
+
 
             Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
             BLConn blConn = BLConn.getInstance();
             try{
                 blConn.connect(getApplicationContext());
+
             }
             catch (Error e){
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
