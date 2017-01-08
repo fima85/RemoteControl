@@ -60,9 +60,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() == MotionEvent.ACTION_DOWN)
-                    BLConn.getInstance().f("set");
+                    BLConn.getInstance().f(false);
                 else
-                    BLConn.getInstance().f("release");
+                    BLConn.getInstance().f(false);
                 return true;
             }
         });

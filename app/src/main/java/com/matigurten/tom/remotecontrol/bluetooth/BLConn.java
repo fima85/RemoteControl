@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
+
 import java.io.IOException;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by fima on 05/01/17.
  */
-public class BLConn {
+public class BLConn implements RemoteProxy{
     private static BLConn ourInstance = new BLConn();
 
     BluetoothAdapter myBluetooth = null;
@@ -37,7 +39,6 @@ public class BLConn {
     public void connect(Context context) throws Error{
 
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-//        String name = prefs.getString(ADDRESS, "No name defined");//"No name defined" is the default value.
         address = prefs.getString(ADDRESS, null);
         appContext = context;
         if (address == null){
@@ -70,17 +71,54 @@ public class BLConn {
 
     }
 
-    public void f(String msg){
+    public void fl(boolean fast){
+        sendCommand("fl");
+    }
+
+    public void f(boolean fast){
+        sendCommand("f");
+    }
+
+    public void fr(boolean fast){
+        sendCommand("fr");
+    }
+
+    public void r(boolean fast){
+       sendCommand("r");
+    }
+
+    public void stop(){
+        sendCommand("stop");
+    }
+    public void l(boolean fast){
+        sendCommand("l");
+    }
+
+    public void br(boolean fast){
+        sendCommand("br");
+    }
+
+    public void b(boolean fast){
+        sendCommand("b");
+    }
+
+    public void bl(boolean fast){
+        sendCommand("bl");
+    }
+
+
+    private void sendCommand(String cmd){
+
         if (btConn!=null)
         {
             try
             {
-                msg += "\n";
-                btConn.getOutputStream().write(msg.getBytes());
+                cmd += "\n";
+                btConn.getOutputStream().write(cmd.getBytes());
             }
             catch (IOException e)
             {
-               Log.e(TAG, "failed: " + e.getMessage());
+                Log.e(TAG, "failed: " + e.getMessage());
             }
             byte[] buf = new byte[1024];
             try {

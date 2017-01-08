@@ -6,8 +6,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
-import com.matigurten.tom.remotecontrol.proxy.LogProxy;
+import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
 import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
 
@@ -17,8 +18,7 @@ import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
  */
 public class RemoteControlActivity extends AppCompatActivity {
 
-    RemoteProxy remote = new LogProxy();
-
+    RemoteProxy remote = BLConn.getInstance();
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -38,6 +38,7 @@ public class RemoteControlActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    private BLConn blConn = BLConn.getInstance();
     //    private final Runnable mHidePart2Runnable = new Runnable() {
 //        @SuppressLint("InlinedApi")
 //        @Override
@@ -94,7 +95,12 @@ public class RemoteControlActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_remote_control);
-
+        try{
+            blConn.connect(getApplicationContext());
+        }
+        catch (Error e){
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
 
         mVisible = true;

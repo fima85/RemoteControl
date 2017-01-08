@@ -9,6 +9,7 @@ import android.util.Log;
 public class LogProxy implements RemoteProxy {
     @Override
     public void fl(boolean fast) {
+
         Log.d("Proxy", "fl" + (fast ? " fast" : ""));
     }
 
