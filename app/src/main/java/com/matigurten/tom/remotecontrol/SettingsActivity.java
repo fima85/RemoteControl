@@ -4,8 +4,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity  extends AppCompatActivity {
 
     ListView devicelist;
     //Bluetooth
@@ -112,11 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
             catch (Error e){
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-
         }
     };
-
-
-
 }
 

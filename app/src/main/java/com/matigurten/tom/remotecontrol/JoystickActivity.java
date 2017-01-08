@@ -4,8 +4,8 @@ package com.matigurten.tom.remotecontrol;
  * Created by Mati on 26/12/2016.
  */
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +15,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -54,12 +57,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
 
         joystick = new Joystick(JoystickActivity.this);
         joystick.setOnTouchListener(this);
-
-//        azimuthTV = (TextView) findViewById(R.id.azimuthTextView);
-//        distanceTV = (TextView) findViewById(R.id.distanceTextView);
-//        int testNumber = 0;
-//        azimuthTV.setText(testNumber + "");
-//        distanceTV.setText(testNumber + "");
 
         Bitmap bigBmp = BitmapFactory.decodeResource(getResources(), R.drawable.arrowright);
         arrowBmp = BitmapUtils.shrinkBitmap(bigBmp, 0.5f);
@@ -114,6 +111,26 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     protected void onResume() {
         super.onResume();
         joystick.resume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.activity_settings) {
+            startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public class Joystick extends SurfaceView implements Runnable {
