@@ -4,8 +4,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -128,12 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
             catch (Error e){
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-//            Intent intent = new Intent(SettingsActivity.this, RemoteControlActivity.class);
-//            startActivity(intent);
         }
     };
-
-
-
 }
 
