@@ -24,10 +24,12 @@ public class RemoteControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_remote_control);
         try {
             BLConn.getInstance().connect(getApplicationContext());
-        } catch (Error e) {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
         }
 
+        // Regular Buttons
         final View fButton = findViewById(R.id.fButton);
         fButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -116,6 +118,99 @@ public class RemoteControlActivity extends AppCompatActivity {
                     frButtonOnClick(frButton);
                 else
                     stopButtonOnClick(frButton);
+                return true;
+            }
+        });
+
+        // Power Buttons
+        final View pfButton = findViewById(R.id.pfButton);
+        pfButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    fButtonOnClick(pfButton);
+                else
+                    stopButtonOnClick(pfButton);
+                return true;
+            }
+        });
+        final View pflButton = findViewById(R.id.pflButton);
+        pflButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    fButtonOnClick(pfButton);
+                else
+                    stopButtonOnClick(pfButton);
+                return true;
+            }
+        });
+
+        final View plButton = findViewById(R.id.plButton);
+        plButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    lButtonOnClick(plButton);
+                else
+                    stopButtonOnClick(plButton);
+                return true;
+            }
+        });
+        final View pblButton = findViewById(R.id.pblButton);
+        pblButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    blButtonOnClick(pblButton);
+                else
+                    stopButtonOnClick(pblButton);
+                return true;
+            }
+        });
+
+        final View pbButton = findViewById(R.id.pbButton);
+        pbButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    bButtonOnClick(pbButton);
+                else
+                    stopButtonOnClick(pbButton);
+                return true;
+            }
+        });
+        final View pbrButton = findViewById(R.id.pbrButton);
+        pbrButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    brButtonOnClick(pbrButton);
+                else
+                    stopButtonOnClick(pbrButton);
+                return true;
+            }
+        });
+
+        final View prButton = findViewById(R.id.prButton);
+        prButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    rButtonOnClick(prButton);
+                else
+                    stopButtonOnClick(prButton);
+                return true;
+            }
+        });
+        final View pfrButton = findViewById(R.id.pfrButton);
+        pfrButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                    frButtonOnClick(pfrButton);
+                else
+                    stopButtonOnClick(pfrButton);
                 return true;
             }
         });

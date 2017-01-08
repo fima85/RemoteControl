@@ -23,7 +23,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
 import com.matigurten.tom.remotecontrol.proxy.JoystickProxy;
 import com.matigurten.util.BitmapUtils;
 
@@ -38,7 +40,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
 
     private float touchX, touchY;
 
-    private int sleep = 6;
     private static int sleepTimeMillis = 1;
     private int fieldRadius;
     private int minRadius;
@@ -46,14 +47,18 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     private Double orientation;
     private double r0, a0;
 
-    TextView azimuthTV, distanceTV;
-    //    private double adhd = 0;
     private float retardFactor = 0.75f;
-//    private boolean isGameOver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            BLConn.getInstance().connect(getApplicationContext());
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        }
 
         joystick = new Joystick(JoystickActivity.this);
         joystick.setOnTouchListener(this);
@@ -127,7 +132,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.activity_settings) {
-            startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -4,10 +4,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.matigurten.tom.remotecontrol.SettingsActivity;
 import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
 import java.io.IOException;
@@ -37,31 +39,43 @@ public class BLConn implements RemoteProxy {
         return ourInstance;
     }
 
-    public void connect(Context context) throws Error {
+    Thread btThread;
+    private String lastCommand = null;
 
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        address = prefs.getString(ADDRESS, null);
-        appContext = context;
-        if (address == null) {
-            throw new Error("need to set device address");
-        }
-        try {
-            if (btConn == null || !isBtConnected) {
-                myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-                BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
-                btConn = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
-                BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-                btConn.connect();//start connection
-                isBtConnected = true;
-            }
-        } catch (IOException e) {
-            error = e.getMessage();
-            isError = false;
-            Log.e(TAG, e.getMessage());
-            throw new Error("failed to connect");
+    public void connect(final Context context) throws Exception {
+
+        btThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                address = prefs.getString(ADDRESS, null);
+                appContext = context;
+                if (address == null) {
+                    throw new Error("need to set device address");
+                }
+                try {
+                    if (btConn == null || !isBtConnected) {
+                        myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
+                        BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
+                        btConn = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                        BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                        btConn.connect();//start connection
+                        isBtConnected = true;
+
+//                        while (lastCommand != null) {
+//                            sendCommand(lastCommand);
+//                            lastCommand = null;
+//                        }
+                    }
+                } catch (IOException e) {
+                    error = e.getMessage();
+                    isError = false;
+                    Log.e(TAG, e.getMessage());
 //           ConnectSuccess = false;//if the try failed, you can check the exception here
-        }
-
+                }
+            }
+        });
+        btThread.start();
     }
 
     private BLConn() {
@@ -104,22 +118,23 @@ public class BLConn implements RemoteProxy {
         sendCommand(!fast ? "AAiE" : "AArE");
     }
 
+
     private void sendCommand(String cmd) {
 
         if (btConn != null) {
             try {
-                cmd += "\n";
+//                cmd += "\n";
                 btConn.getOutputStream().write(cmd.getBytes());
             } catch (IOException e) {
                 Log.e(TAG, "failed: " + e.getMessage());
             }
-            byte[] buf = new byte[1024];
-            try {
-                int res = btConn.getInputStream().read(buf);
-                Toast.makeText(appContext, new String(buf), Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+//            byte[] buf = new byte[1024];
+//            try {
+//                int res = btConn.getInputStream().read(buf);
+//                Toast.makeText(appContext, new String(buf), Toast.LENGTH_SHORT).show();
+//            } catch (IOException e) {
+//                Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 }

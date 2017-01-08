@@ -1,5 +1,6 @@
 package com.matigurten.tom.remotecontrol.proxy;
 
+import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
 import com.matigurten.util.MathUtils;
 
 /**
@@ -8,10 +9,13 @@ import com.matigurten.util.MathUtils;
 
 public class JoystickProxy extends LogProxy {
 
+    BLConn btProxy = BLConn.getInstance();
     private int lastCode;
 
-    public int translate(double distance, double angle) {
+    public JoystickProxy() {
+    }
 
+    public int translate(double distance, double angle) {
         //      5  6  7
         //      4 -1  0
         //      3  2  1
@@ -27,27 +31,35 @@ public class JoystickProxy extends LogProxy {
 //                Log.d("Joystick", distance + " / " + angle + " / " + code);
                 switch (code % 8) {
                     case 0:
+                        btProxy.r(fast);
                         r(fast);
                         break;
                     case 1:
+                        btProxy.br(fast);
                         br(fast);
                         break;
                     case 2:
+                        btProxy.b(fast);
                         b(fast);
                         break;
                     case 3:
+                        btProxy.bl(fast);
                         bl(fast);
                         break;
                     case 4:
+                        btProxy.l(fast);
                         l(fast);
                         break;
                     case 5:
+                        btProxy.fl(fast);
                         fl(fast);
                         break;
                     case 6:
+                        btProxy.f(fast);
                         f(fast);
                         break;
                     case 7:
+                        btProxy.fr(fast);
                         fr(fast);
                         break;
                 }
@@ -55,5 +67,11 @@ public class JoystickProxy extends LogProxy {
             lastCode = code;
         }
         return lastCode;
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        btProxy.stop();
     }
 }

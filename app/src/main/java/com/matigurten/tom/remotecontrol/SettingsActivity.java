@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+
 import com.matigurten.tom.remotecontrol.common.SharedPref;
 import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
@@ -110,7 +110,6 @@ public class SettingsActivity extends AppCompatActivity {
         final ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
         devicelist.setAdapter(adapter);
         devicelist.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
-
     }
 
     private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener()
@@ -126,15 +125,12 @@ public class SettingsActivity extends AppCompatActivity {
             editor.putString(BLConn.getInstance().ADDRESS, address);
             editor.commit();
 
-
-
             Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
             BLConn blConn = BLConn.getInstance();
             try{
                 blConn.connect(getApplicationContext());
-
             }
-            catch (Error e){
+            catch (Exception e){
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
