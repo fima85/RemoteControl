@@ -140,8 +140,8 @@ public abstract class ControllerActivity extends AppCompatActivity {
         remote.br(true);
     }
 
-    @Override
-    public void onBackPressed() {
-        return;
-    }
+//    @Override
+//    public void onBackPressed() {
+//        return;
+//    }
 }

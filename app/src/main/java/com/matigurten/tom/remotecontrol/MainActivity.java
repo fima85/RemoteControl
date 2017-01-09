@@ -12,8 +12,6 @@ import com.matigurten.tom.remotecontrol.common.SharedPref;
 /**
  * Created by Mati on 08/01/2017.
  */
-
-
 public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
@@ -34,8 +32,6 @@ public class MainActivity extends Activity {
             public void run() {
                 startActivity(i);
             }
-        }, 2000);
+        }, 1000);
     }
-
-
 }
