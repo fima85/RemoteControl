@@ -305,4 +305,10 @@ public class RemoteControlActivity extends AppCompatActivity {
     public void pbrButtonOnClick(View v) {
         remote.br(true);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        return;
+    }
 }

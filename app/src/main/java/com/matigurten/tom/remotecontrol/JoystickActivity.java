@@ -304,4 +304,10 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
             return getDistance() > 0 ? BitmapUtils.rotateBitmap(arrowBmp, (float) Math.toDegrees(orientation)) : stopBmp;
         }
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        return;
+    }
 }

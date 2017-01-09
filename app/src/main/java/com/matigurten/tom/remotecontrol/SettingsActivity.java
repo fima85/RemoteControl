@@ -135,5 +135,20 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed()
+    {
+        //do whatever you want the 'Back' button to do
+        //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
+        RemoteTypeEnum remoteType = SharedPref.getRemoteType(this);
+        Log.d(TAG, "starting activity " + remoteType.name());
+        Intent i = new Intent(getApplicationContext(), remoteType.getActivityClass());
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        this.startActivity(i);
+
+        return;
+    }
 }
 

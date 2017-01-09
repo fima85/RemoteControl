@@ -1,6 +1,11 @@
 package com.matigurten.tom.remotecontrol.proxy;
 
+import android.content.Intent;
+import android.util.Log;
+
+import com.matigurten.tom.remotecontrol.RemoteTypeEnum;
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+import com.matigurten.tom.remotecontrol.common.SharedPref;
 import com.matigurten.util.MathUtils;
 
 /**
@@ -67,4 +72,6 @@ public class JoystickProxy extends LogProxy {
         btProxy.stop();
         super.stop();
     }
+
+
 }
