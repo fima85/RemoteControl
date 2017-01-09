@@ -10,22 +10,18 @@ import com.matigurten.util.MathUtils;
 public class JoystickProxy extends LogProxy {
 
     BLConn btProxy = BLConn.getInstance();
-    private int lastCode;
 
     public JoystickProxy() {
     }
 
+    public static int INNER_R = 50, OUTER_R = 450;
+
     public int translate(double distance, double angle) {
-        //      5  6  7
-        //      4 -1  0
-        //      3  2  1
-        if (distance < 50) {
-            if (lastCode != -1) {
-                stop();
-                lastCode = -1;
-            }
+        if (distance < INNER_R) {
+            stop();
+            return -1;
         } else {
-            boolean fast = distance > 450;
+            boolean fast = distance > OUTER_R;
             int code = (int) Math.floor(8 * (MathUtils.mod(angle + Math.PI / 8, Math.PI * 2) / (2 * Math.PI))) + (fast ? 8 : 0);
             if (code != lastCode) {
 //                Log.d("JOYSTICK", distance + " / " + angle + " / " + code);
@@ -64,14 +60,13 @@ public class JoystickProxy extends LogProxy {
                         break;
                 }
             }
-            lastCode = code;
+            return code;
         }
-        return lastCode;
     }
 
     @Override
     public void stop() {
-        super.stop();
         btProxy.stop();
+        super.stop();
     }
 }

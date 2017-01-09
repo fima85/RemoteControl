@@ -46,7 +46,7 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    fButtonOnClick(fButton);
+                    flButtonOnClick(fButton);
                 else
                     stopButtonOnClick(fButton);
                 return true;
@@ -128,7 +128,7 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    fButtonOnClick(pfButton);
+                    pfButtonOnClick(pfButton);
                 else
                     stopButtonOnClick(pfButton);
                 return true;
@@ -139,19 +139,18 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    fButtonOnClick(pfButton);
+                    pflButtonOnClick(pflButton);
                 else
-                    stopButtonOnClick(pfButton);
+                    stopButtonOnClick(pflButton);
                 return true;
             }
         });
-
         final View plButton = findViewById(R.id.plButton);
         plButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    lButtonOnClick(plButton);
+                    plButtonOnClick(plButton);
                 else
                     stopButtonOnClick(plButton);
                 return true;
@@ -162,19 +161,18 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    blButtonOnClick(pblButton);
+                    pblButtonOnClick(pblButton);
                 else
                     stopButtonOnClick(pblButton);
                 return true;
             }
         });
-
         final View pbButton = findViewById(R.id.pbButton);
         pbButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    bButtonOnClick(pbButton);
+                    pbButtonOnClick(pbButton);
                 else
                     stopButtonOnClick(pbButton);
                 return true;
@@ -185,7 +183,7 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    brButtonOnClick(pbrButton);
+                    pbrButtonOnClick(pbrButton);
                 else
                     stopButtonOnClick(pbrButton);
                 return true;
@@ -197,7 +195,7 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    rButtonOnClick(prButton);
+                    prButtonOnClick(prButton);
                 else
                     stopButtonOnClick(prButton);
                 return true;
@@ -208,7 +206,7 @@ public class RemoteControlActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    frButtonOnClick(pfrButton);
+                    pfrButtonOnClick(pfrButton);
                 else
                     stopButtonOnClick(pfrButton);
                 return true;
