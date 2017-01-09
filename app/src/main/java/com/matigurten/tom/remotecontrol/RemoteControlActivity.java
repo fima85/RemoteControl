@@ -16,18 +16,13 @@ import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 public class RemoteControlActivity extends AppCompatActivity {
 
     RemoteProxy remote = BLConn.getInstance();
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_remote_control);
-        try {
-            BLConn.getInstance().connect(getApplicationContext());
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-        }
 
         // Regular Buttons
         final View fButton = findViewById(R.id.fButton);
@@ -217,7 +212,13 @@ public class RemoteControlActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        this.menu = menu;
+        inflater.inflate(R.menu.main_menu, this.menu);
+        menu.findItem(R.id.connect).setEnabled(!BLConn.getInstance().isConnected());
+        menu.findItem(R.id.connect).setVisible(!BLConn.getInstance().isConnected());
+
+        menu.findItem(R.id.disconnect).setEnabled(BLConn.getInstance().isConnected());
+        menu.findItem(R.id.disconnect).setVisible(BLConn.getInstance().isConnected());
         return true;
     }
 
@@ -226,10 +227,38 @@ public class RemoteControlActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+
         int id = item.getItemId();
         if (id == R.id.activity_settings) {
             startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
             return true;
+        } else if(id == R.id.connect){
+
+            try {
+                BLConn.getInstance().connect(getApplicationContext());
+
+                item.setVisible(false);
+                item.setEnabled(false);
+
+                menu.findItem(R.id.disconnect).setEnabled(true);
+                menu.findItem(R.id.disconnect).setVisible(true);
+
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+            }
+        } else if(id == R.id.disconnect){
+                BLConn.getInstance().disconnect();
+
+                item.setVisible(false);
+                item.setEnabled(false);
+
+            menu.findItem(R.id.connect).setEnabled(true);
+            menu.findItem(R.id.connect).setVisible(true);
+
+
+
         }
         return super.onOptionsItemSelected(item);
     }

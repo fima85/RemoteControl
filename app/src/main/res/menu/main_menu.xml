@@ -7,4 +7,19 @@ tools:context="com.matigurten.tom.remotecontrol.RemoteControlActivity">
     android:orderInCategory="100"
     android:title="RemoteSettings"
     app:showAsAction="never" />
+
+    <item
+        android:id="@+id/connect"
+        android:icon="@drawable/ic_action_connect"
+        android:orderInCategory="100"
+        android:title="connect"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/disconnect"
+        android:icon="@drawable/ic_action_disconnected"
+        android:orderInCategory="100"
+        android:title="connect"
+        app:showAsAction="ifRoom" />
+
 </menu>

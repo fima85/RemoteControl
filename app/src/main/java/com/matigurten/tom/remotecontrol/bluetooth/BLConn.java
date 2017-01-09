@@ -88,6 +88,22 @@ public class BLConn implements RemoteProxy {
         btThread.start();
     }
 
+    public void disconnect(){
+
+        if(btConn != null && isBtConnected){
+            try {
+                btConn.close();
+                isBtConnected = false;
+            }
+            catch (IOException e){
+                Log.d(TAG, "disconnect: " + e);
+            }
+        }
+    }
+
+    public boolean isConnected(){
+        return isBtConnected;
+    }
     private BLConn() {
 
     }
