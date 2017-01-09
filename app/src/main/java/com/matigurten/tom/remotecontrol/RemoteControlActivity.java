@@ -1,39 +1,29 @@
 package com.matigurten.tom.remotecontrol;
 
-import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
-import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
-import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
-
-public class RemoteControlActivity extends AppCompatActivity {
-
-    RemoteProxy remote = BLConn.getInstance();
-    private Menu menu;
+public class RemoteControlActivity extends ControllerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_remote_control);
+        getWindow().getDecorView().setBackgroundColor(Color.BLACK);
 
         // Regular Buttons
         final View fButton = findViewById(R.id.fButton);
         fButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (
-                        isPressing(arg1))
+                if (isPressing(arg1)) {
+                    fButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     fButtonOnClick(fButton);
-                else
+                } else
                     stopButtonOnClick(fButton);
                 return true;
             }
@@ -42,9 +32,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         flButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    flButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     flButtonOnClick(flButton);
-                else
+                } else
                     stopButtonOnClick(flButton);
                 return true;
             }
@@ -54,9 +45,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         lButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    lButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     lButtonOnClick(lButton);
-                else
+                } else
                     stopButtonOnClick(lButton);
                 return true;
             }
@@ -65,9 +57,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         blButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    blButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     blButtonOnClick(blButton);
-                else
+                } else
                     stopButtonOnClick(blButton);
                 return true;
             }
@@ -77,9 +70,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         bButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    bButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     bButtonOnClick(bButton);
-                else
+                } else
                     stopButtonOnClick(bButton);
                 return true;
             }
@@ -88,9 +82,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         brButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    brButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     brButtonOnClick(brButton);
-                else
+                } else
                     stopButtonOnClick(brButton);
                 return true;
             }
@@ -100,9 +95,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         rButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    rButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     rButtonOnClick(rButton);
-                else
+                } else
                     stopButtonOnClick(rButton);
                 return true;
             }
@@ -111,9 +107,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         frButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    frButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     frButtonOnClick(frButton);
-                else
+                } else
                     stopButtonOnClick(frButton);
                 return true;
             }
@@ -124,9 +121,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         pfButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    pfButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     pfButtonOnClick(pfButton);
-                else
+                } else
                     stopButtonOnClick(pfButton);
                 return true;
             }
@@ -135,9 +133,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         pflButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    pflButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     pflButtonOnClick(pflButton);
-                else
+                } else
                     stopButtonOnClick(pflButton);
                 return true;
             }
@@ -146,9 +145,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         plButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    plButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     plButtonOnClick(plButton);
-                else
+                } else
                     stopButtonOnClick(plButton);
                 return true;
             }
@@ -157,9 +157,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         pblButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    pblButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     pblButtonOnClick(pblButton);
-                else
+                } else
                     stopButtonOnClick(pblButton);
                 return true;
             }
@@ -168,9 +169,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         pbButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    pbButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     pbButtonOnClick(pbButton);
-                else
+                } else
                     stopButtonOnClick(pbButton);
                 return true;
             }
@@ -179,9 +181,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         pbrButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    pbrButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     pbrButtonOnClick(pbrButton);
-                else
+                } else
                     stopButtonOnClick(pbrButton);
                 return true;
             }
@@ -190,9 +193,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         prButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    prButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     prButtonOnClick(prButton);
-                else
+                } else
                     stopButtonOnClick(prButton);
                 return true;
             }
@@ -201,10 +205,12 @@ public class RemoteControlActivity extends AppCompatActivity {
         pfrButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (isPressing(arg1))
+                if (isPressing(arg1)) {
+                    pfrButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                     pfrButtonOnClick(pfrButton);
-                else
+                } else {
                     stopButtonOnClick(pfrButton);
+                }
                 return true;
             }
         });
@@ -214,134 +220,8 @@ public class RemoteControlActivity extends AppCompatActivity {
         return arg1.getAction() == MotionEvent.ACTION_DOWN || arg1.getAction() == MotionEvent.ACTION_MOVE;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        this.menu = menu;
-        inflater.inflate(R.menu.main_menu, this.menu);
-        menu.findItem(R.id.connect).setEnabled(!BLConn.getInstance().isConnected());
-        menu.findItem(R.id.connect).setVisible(!BLConn.getInstance().isConnected());
-
-        menu.findItem(R.id.disconnect).setEnabled(BLConn.getInstance().isConnected());
-        menu.findItem(R.id.disconnect).setVisible(BLConn.getInstance().isConnected());
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-
-        int id = item.getItemId();
-        if (id == R.id.activity_settings) {
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            return true;
-        } else if(id == R.id.connect){
-
-            try {
-                BLConn.getInstance().connect(getApplicationContext());
-
-                item.setVisible(false);
-                item.setEnabled(false);
-
-                menu.findItem(R.id.disconnect).setEnabled(true);
-                menu.findItem(R.id.disconnect).setVisible(true);
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            }
-        } else if(id == R.id.disconnect){
-                BLConn.getInstance().disconnect();
-
-                item.setVisible(false);
-                item.setEnabled(false);
-
-            menu.findItem(R.id.connect).setEnabled(true);
-            menu.findItem(R.id.connect).setVisible(true);
-
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void flButtonOnClick(View v) {
-        remote.fl(false);
-    }
-
-    public void fButtonOnClick(View v) {
-        remote.f(false);
-    }
-
-    public void frButtonOnClick(View v) {
-        remote.fr(false);
-    }
-
-    public void lButtonOnClick(View v) {
-        remote.l(false);
-    }
-
     public void stopButtonOnClick(View v) {
-        remote.stop();
-    }
-
-    public void rButtonOnClick(View v) {
-        remote.r(false);
-    }
-
-    public void blButtonOnClick(View v) {
-        remote.bl(false);
-    }
-
-    public void bButtonOnClick(View v) {
-        remote.b(false);
-    }
-
-    public void brButtonOnClick(View v) {
-        remote.br(false);
-    }
-
-    public void pflButtonOnClick(View v) {
-        remote.fl(true);
-    }
-
-    public void pfButtonOnClick(View v) {
-        remote.f(true);
-    }
-
-    public void pfrButtonOnClick(View v) {
-        remote.fr(true);
-    }
-
-    public void plButtonOnClick(View v) {
-        remote.l(true);
-    }
-
-    public void pstopButtonOnClick(View v) {
-        remote.stop();
-    }
-
-    public void prButtonOnClick(View v) {
-        remote.r(true);
-    }
-
-    public void pblButtonOnClick(View v) {
-        remote.bl(true);
-    }
-
-    public void pbButtonOnClick(View v) {
-        remote.b(true);
-    }
-
-    public void pbrButtonOnClick(View v) {
-        remote.br(true);
-    }
-
-    @Override
-    public void onBackPressed() {
-        return;
+        super.stopButtonOnClick(v);
+        v.getBackground().clearColorFilter();
     }
 }
