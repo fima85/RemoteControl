@@ -46,7 +46,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
 
     private Double orientation;
     private double r0, a0;
-
+    private Menu menu;
     private float retardFactor = 0.75f;
 
     @Override
@@ -133,12 +133,19 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     protected void onResume() {
         super.onResume();
         joystick.resume();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        this.menu = menu;
+        menu.findItem(R.id.connect).setEnabled(!BLConn.getInstance().isConnected());
+        menu.findItem(R.id.connect).setVisible(!BLConn.getInstance().isConnected());
+
+        menu.findItem(R.id.disconnect).setEnabled(BLConn.getInstance().isConnected());
+        menu.findItem(R.id.disconnect).setVisible(BLConn.getInstance().isConnected());
         return true;
     }
 
@@ -149,8 +156,34 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.activity_settings) {
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+            startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
             return true;
+        } else if(id == R.id.connect){
+
+            try {
+                BLConn.getInstance().connect(getApplicationContext());
+
+                item.setVisible(false);
+                item.setEnabled(false);
+
+                menu.findItem(R.id.disconnect).setEnabled(true);
+                menu.findItem(R.id.disconnect).setVisible(true);
+
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+            }
+        } else if(id == R.id.disconnect){
+            BLConn.getInstance().disconnect();
+
+            item.setVisible(false);
+            item.setEnabled(false);
+
+            menu.findItem(R.id.connect).setEnabled(true);
+            menu.findItem(R.id.connect).setVisible(true);
+
+
+
         }
         return super.onOptionsItemSelected(item);
     }
