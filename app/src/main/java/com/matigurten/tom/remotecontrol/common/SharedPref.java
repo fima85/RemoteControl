@@ -20,9 +20,9 @@ public class SharedPref {
     private static final String TAG = "SharedPref";
     public static int INNER_R = 50, OUTER_R = 450;
 
-    public static final String[] remoteTypes = new String[]{
-            "RemoteControl",
-            "JOYSTICK"
+    public static final String[] remoteTypes = new String[] {
+            "Remote Control",
+            "Joystick"
     };
 
     public static final String[] remoteActivity = new String[]{

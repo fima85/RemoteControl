@@ -36,7 +36,7 @@
         <activity
             android:name=".RemoteControlActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Buttons"
+            android:label="Remote Control"
             android:theme="@style/AppTheme">
         </activity>
         <activity
