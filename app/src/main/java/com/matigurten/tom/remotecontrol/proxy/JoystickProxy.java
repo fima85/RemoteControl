@@ -23,7 +23,6 @@ public class JoystickProxy extends LogProxy {
         } else {
             boolean fast = distance > OUTER_R;
             int code = (int) Math.floor(8 * (MathUtils.mod(angle + Math.PI / 8, Math.PI * 2) / (2 * Math.PI))) + (fast ? 8 : 0);
-            if (code != lastCode) {
 //                Log.d("JOYSTICK", distance + " / " + angle + " / " + code);
                 switch (code % 8) {
                     case 0:
@@ -59,7 +58,6 @@ public class JoystickProxy extends LogProxy {
                         fr(fast);
                         break;
                 }
-            }
             return code;
         }
     }

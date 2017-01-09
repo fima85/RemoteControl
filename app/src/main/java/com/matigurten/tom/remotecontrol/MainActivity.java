@@ -32,7 +32,10 @@ public class MainActivity extends Activity {
 
         RemoteTypeEnum remoteType = SharedPref.getRemoteType(this);
         Log.d(TAG, "starting activity " + remoteType.name());
-        startActivity(new Intent(getApplicationContext(), remoteType.getActivityClass()));
+        Intent i = new Intent(getApplicationContext(), remoteType.getActivityClass());
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(i);
     }
-    
+
 }
