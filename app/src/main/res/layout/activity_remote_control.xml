@@ -143,25 +143,22 @@
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
                 <Button
-                    android:text="↖"
+                    android:background="@drawable/forward_left_arrow_2"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/flButton"
-                    android:textSize="50sp"
                     android:onClick="flButtonOnClick" />
                 <Button
-                    android:text="↑"
+                    android:background="@drawable/forward_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/fButton"
-                    android:textSize="50sp"
                     android:onClick="fButtonOnClick" />
                 <Button
-                    android:text="↗"
+                    android:background="@drawable/forward_right_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/frButton"
-                    android:textSize="50sp"
                     android:onClick="frButtonOnClick" />
             </LinearLayout>
             <LinearLayout
@@ -172,29 +169,26 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/black_overlay"
                 android:orientation="horizontal"
-
                 tools:ignore="UselessParent">
                 <Button
-                    android:text="←"
+                    android:background="@drawable/left_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/lButton"
-                    android:textSize="50sp"
                     android:onClick="lButtonOnClick" />
                 <Button
                     android:text="STOP"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/stopButton"
+                    android:layout_gravity="top"
                     android:onClick="stopButtonOnClick" />
                 <Button
-                    android:text="→"
+                    android:background="@drawable/right_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/rButton"
-                    android:textSize="50sp"
                     android:onClick="rButtonOnClick" />
-
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/backButtons"
@@ -206,25 +200,22 @@
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
                 <Button
-                    android:text="↙"
+                    android:background="@drawable/back_left_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/blButton"
-                    android:textSize="50sp"
                     android:onClick="blButtonOnClick" />
                 <Button
-                    android:text="↓"
+                    android:background="@drawable/back_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/bButton"
-                    android:textSize="50sp"
                     android:onClick="bButtonOnClick" />
                 <Button
-                    android:text="↘"
+                    android:background="@drawable/back_right_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/brButton"
-                    android:textSize="50sp"
                     android:onClick="brButtonOnClick" />
             </LinearLayout>
         </LinearLayout>
