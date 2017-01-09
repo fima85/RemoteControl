@@ -2,10 +2,18 @@ package com.matigurten.tom.remotecontrol;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.matigurten.tom.remotecontrol.common.SharedPref;
 
 /**
@@ -17,25 +25,24 @@ public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
-        try {
-            Thread.sleep(2000); //
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_LONG).show();
+        setContentView(R.layout.main_actiivty_layout);
 
         RemoteTypeEnum remoteType = SharedPref.getRemoteType(this);
         Log.d(TAG, "starting activity " + remoteType.name());
-        Intent i = new Intent(getApplicationContext(), remoteType.getActivityClass());
+        final Intent i = new Intent(getApplicationContext(), remoteType.getActivityClass());
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        startActivity(i);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(i);
+            }
+        }, 2000);
     }
+
 
 }
