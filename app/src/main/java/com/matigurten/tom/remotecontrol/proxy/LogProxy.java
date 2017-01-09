@@ -8,46 +8,50 @@ import android.util.Log;
 public class LogProxy implements RemoteProxy {
     @Override
     public void fl(boolean fast) {
-        Log.d("Proxy", "fl" + (fast ? " fast" : ""));
+        logOut("Forward Left" + (fast ? " fast" : ""));
     }
 
     @Override
     public void f(boolean fast) {
-        Log.d("Proxy", "f" + (fast ? " fast" : ""));
+        logOut("Forward" + (fast ? " fast" : ""));
     }
 
     @Override
     public void fr(boolean fast) {
-        Log.d("Proxy", "fr" + (fast ? " fast" : ""));
+        logOut("Forward Right" + (fast ? " fast" : ""));
     }
 
     @Override
     public void r(boolean fast) {
-        Log.d("Proxy", "r" + (fast ? " fast" : ""));
+        logOut("Right" + (fast ? " fast" : ""));
     }
 
     @Override
     public void stop() {
-        Log.d("Proxy", "stop");
+        logOut("STOP!");
     }
 
     @Override
     public void l(boolean fast) {
-        Log.d("Proxy", "l" + (fast ? " fast" : ""));
+        logOut("Left" + (fast ? " fast" : ""));
     }
 
     @Override
     public void br(boolean fast) {
-        Log.d("Proxy", "br" + (fast ? " fast" : ""));
+        logOut("Back Right" + (fast ? " fast" : ""));
     }
 
     @Override
     public void b(boolean fast) {
-        Log.d("Proxy", "b" + (fast ? " fast" : ""));
+        logOut("Back" + (fast ? " fast" : ""));
     }
 
     @Override
     public void bl(boolean fast) {
-        Log.d("Proxy", "bl " + (fast ? " fast" : ""));
+        logOut("Back Left" + (fast ? " fast" : ""));
+    }
+
+    private void logOut(String cmd) {
+        Log.d("Proxy", cmd);
     }
 }

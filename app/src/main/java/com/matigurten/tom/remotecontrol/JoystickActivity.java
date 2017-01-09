@@ -6,6 +6,7 @@ package com.matigurten.tom.remotecontrol;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,6 +15,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,7 +74,34 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         SharedPref.INNER_R = (int) r0;
 
         setContentView(joystick);
-        joystick.reset();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                joystick.reset();
+                joystick.redraw();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+//        // Checks the orientation of the screen
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+//        }
+        joystick.isInit = false;
+        setContentView(joystick);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                joystick.reset();
+                joystick.redraw();
+            }
+        }, 500);
     }
 
     @Override
@@ -174,11 +203,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         public void resume() {
             running = true;
             thread = new Thread(this);
-            try {
-                Thread.sleep(1000); // Allow for proper initialization ?
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             thread.start();
         }
 
@@ -269,6 +293,8 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         }
 
         private double getDistance() {
+            if (centerX == -1 || centerY == -1)
+                return 0;
             return Math.hypot(centerX - startPointX, centerY - startPointY);
         }
 
@@ -283,7 +309,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         boolean isInit = false;
 
         private void reset(Canvas c) {
-            if (c != null) { // && (startPointX == 0 || startPointY == 0)) {
+            if (c != null) { // || !isInit) { // && (startPointX == 0 || startPointY == 0)) {
                 startPointX = c.getWidth() / 2;
                 startPointY = c.getHeight() / 2;
                 SharedPref.OUTER_R = (int) Math.round(Math.min(c.getWidth(), c.getHeight()) / 2 * 0.8);

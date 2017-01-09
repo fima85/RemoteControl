@@ -30,7 +30,8 @@ public class RemoteControlActivity extends AppCompatActivity {
         fButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (
+                        isPressing(arg1))
                     fButtonOnClick(fButton);
                 else
                     stopButtonOnClick(fButton);
@@ -41,10 +42,10 @@ public class RemoteControlActivity extends AppCompatActivity {
         flButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
-                    flButtonOnClick(fButton);
+                if (isPressing(arg1))
+                    flButtonOnClick(flButton);
                 else
-                    stopButtonOnClick(fButton);
+                    stopButtonOnClick(flButton);
                 return true;
             }
         });
@@ -53,7 +54,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         lButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     lButtonOnClick(lButton);
                 else
                     stopButtonOnClick(lButton);
@@ -64,7 +65,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         blButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     blButtonOnClick(blButton);
                 else
                     stopButtonOnClick(blButton);
@@ -76,7 +77,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         bButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     bButtonOnClick(bButton);
                 else
                     stopButtonOnClick(bButton);
@@ -87,7 +88,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         brButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     brButtonOnClick(brButton);
                 else
                     stopButtonOnClick(brButton);
@@ -99,7 +100,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         rButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     rButtonOnClick(rButton);
                 else
                     stopButtonOnClick(rButton);
@@ -110,7 +111,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         frButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     frButtonOnClick(frButton);
                 else
                     stopButtonOnClick(frButton);
@@ -123,7 +124,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         pfButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     pfButtonOnClick(pfButton);
                 else
                     stopButtonOnClick(pfButton);
@@ -134,7 +135,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         pflButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     pflButtonOnClick(pflButton);
                 else
                     stopButtonOnClick(pflButton);
@@ -145,7 +146,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         plButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     plButtonOnClick(plButton);
                 else
                     stopButtonOnClick(plButton);
@@ -156,7 +157,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         pblButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     pblButtonOnClick(pblButton);
                 else
                     stopButtonOnClick(pblButton);
@@ -167,7 +168,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         pbButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     pbButtonOnClick(pbButton);
                 else
                     stopButtonOnClick(pbButton);
@@ -178,19 +179,18 @@ public class RemoteControlActivity extends AppCompatActivity {
         pbrButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     pbrButtonOnClick(pbrButton);
                 else
                     stopButtonOnClick(pbrButton);
                 return true;
             }
         });
-
         final View prButton = findViewById(R.id.prButton);
         prButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     prButtonOnClick(prButton);
                 else
                     stopButtonOnClick(prButton);
@@ -201,13 +201,17 @@ public class RemoteControlActivity extends AppCompatActivity {
         pfrButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() != MotionEvent.ACTION_UP)
+                if (isPressing(arg1))
                     pfrButtonOnClick(pfrButton);
                 else
                     stopButtonOnClick(pfrButton);
                 return true;
             }
         });
+    }
+
+    private boolean isPressing(MotionEvent arg1) {
+        return arg1.getAction() == MotionEvent.ACTION_DOWN || arg1.getAction() == MotionEvent.ACTION_MOVE;
     }
 
     @Override
@@ -232,7 +236,7 @@ public class RemoteControlActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.activity_settings) {
-            startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
         } else if(id == R.id.connect){
 
@@ -337,8 +341,7 @@ public class RemoteControlActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         return;
     }
 }

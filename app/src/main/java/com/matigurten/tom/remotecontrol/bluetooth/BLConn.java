@@ -4,12 +4,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.matigurten.tom.remotecontrol.SettingsActivity;
+import com.matigurten.tom.remotecontrol.proxy.LogProxy;
 import com.matigurten.tom.remotecontrol.proxy.RemoteProxy;
 
 import java.io.IOException;
@@ -20,7 +18,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by fima on 05/01/17.
  */
-public class BLConn implements RemoteProxy {
+public class BLConn extends LogProxy {
     private static BLConn ourInstance = new BLConn();
 
     BluetoothAdapter myBluetooth = null;
@@ -42,7 +40,7 @@ public class BLConn implements RemoteProxy {
     private Thread btThread;
 
     private String lastCommand = null;
-    private int waitTime = 50;
+    private int waitTime = 100;
 
     public void connect(final Context context) throws Exception {
 
@@ -109,53 +107,64 @@ public class BLConn implements RemoteProxy {
     }
 
     public void stop() {
+        super.stop();
         setCommand("AAaE");
     }
 
     public void f(boolean fast) {
+        super.f(fast);
         setCommand(!fast ? "AAbE" : "AAkE");
     }
 
     public void fl(boolean fast) {
-        setCommand(!fast ? "AAcE" : "AAlE");
+        super.fl(fast);
+setCommand(!fast ? "AAcE" : "AAlE");
     }
 
     public void l(boolean fast) {
+        super.l(fast);
         setCommand(!fast ? "AAdE" : "AAmE");
     }
 
     public void bl(boolean fast) {
+        super.bl(fast);
         setCommand(!fast ? "AAeE" : "AAnE");
     }
 
     public void b(boolean fast) {
+        super.b(fast);
         setCommand(!fast ? "AAfE" : "AAoE");
     }
 
     public void br(boolean fast) {
+        super.br(fast);
         setCommand(!fast ? "AAgE" : "AApE");
     }
 
     public void r(boolean fast) {
+        super.r(fast);
         setCommand(!fast ? "AAhE" : "AAqE");
     }
 
     public void fr(boolean fast) {
+        super.fr(fast);
         setCommand(!fast ? "AAiE" : "AArE");
     }
-
-    long lastSend = 0;
 
     private void setCommand(String cmd) {
         lastCommand = cmd;
     }
 
+    long lastSentTime = 0;
+    String lastSentCommand = null;
+
     private void sendCommand(String cmd) {
-        if (btConn != null && cmd != null) {
+        if (btConn != null && cmd != lastSentCommand) {
             try {
                 long current = System.currentTimeMillis();
-                Log.d("Bluetooth", cmd + " @ " + current + " / " + (current - lastSend));
-                lastSend = current;
+                Log.d("Bluetooth", cmd + " @ " + current + " / " + (current - lastSentTime));
+                lastSentCommand = cmd;
+                lastSentTime = current;
                 btConn.getOutputStream().write(cmd.getBytes());
             } catch (IOException e) {
                 Log.e(TAG, "failed: " + e.getMessage());
