@@ -68,6 +68,7 @@ public class BLConn extends LogProxy {
                     error = e.getMessage();
                     isError = false;
                     Log.e(TAG, e.getMessage());
+                    
 //                    throw new Exception("missing address");
 //           ConnectSuccess = false;//if the try failed, you can check the exception here
                 } finally {
