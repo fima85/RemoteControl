@@ -39,9 +39,10 @@ public class BLConn implements RemoteProxy {
         return ourInstance;
     }
 
-    Thread btThread;
+    private Thread btThread;
 
     private String lastCommand = null;
+    private int waitTime = 99;
 
     public void connect(final Context context) throws Exception {
 
@@ -64,11 +65,6 @@ public class BLConn implements RemoteProxy {
                         BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                         btConn.connect();//start connection
                         isBtConnected = true;
-
-//                        while (lastCommand != null) {
-//                            sendCommand(lastCommand);
-//                            lastCommand = null;
-//                        }
                     }
                 } catch (IOException e) {
                     error = e.getMessage();
@@ -76,6 +72,16 @@ public class BLConn implements RemoteProxy {
                     Log.e(TAG, e.getMessage());
 //                    throw new Exception("missing address");
 //           ConnectSuccess = false;//if the try failed, you can check the exception here
+                } finally {
+                    isBtConnected = true;
+                    while (isBtConnected) {
+                        sendCommand(lastCommand);
+                        try {
+                            Thread.sleep(waitTime);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         });
@@ -87,52 +93,54 @@ public class BLConn implements RemoteProxy {
     }
 
     public void stop() {
-        sendCommand("AAaE");
+        setCommand("AAaE");
     }
 
     public void f(boolean fast) {
-        sendCommand(!fast ? "AAbE" : "AAkE");
+        setCommand(!fast ? "AAbE" : "AAkE");
     }
 
     public void fl(boolean fast) {
-        sendCommand(!fast ? "AAcE" : "AAlE");
+        setCommand(!fast ? "AAcE" : "AAlE");
     }
 
     public void l(boolean fast) {
-        sendCommand(!fast ? "AAdE" : "AAmE");
+        setCommand(!fast ? "AAdE" : "AAmE");
     }
 
     public void bl(boolean fast) {
-        sendCommand(!fast ? "AAeE" : "AAnE");
+        setCommand(!fast ? "AAeE" : "AAnE");
     }
 
     public void b(boolean fast) {
-        sendCommand(!fast ? "AAfE" : "AAoE");
+        setCommand(!fast ? "AAfE" : "AAoE");
     }
 
     public void br(boolean fast) {
-        sendCommand(!fast ? "AAgE" : "AApE");
+        setCommand(!fast ? "AAgE" : "AApE");
     }
 
     public void r(boolean fast) {
-        sendCommand(!fast ? "AAhE" : "AAqE");
+        setCommand(!fast ? "AAhE" : "AAqE");
     }
 
     public void fr(boolean fast) {
-        sendCommand(!fast ? "AAiE" : "AArE");
+        setCommand(!fast ? "AAiE" : "AArE");
     }
 
+    long lastSend = 0;
+
+    private void setCommand(String cmd) {
+        lastCommand = cmd;
+    }
 
     private void sendCommand(String cmd) {
-        if (btConn != null && !cmd.equals(lastCommand)) {
+        if (btConn != null && cmd != null) {
             try {
+                long current = System.currentTimeMillis();
+                Log.d("Bluetooth", cmd + " @ " + current + " / " + (current - lastSend));
+                lastSend = current;
                 btConn.getOutputStream().write(cmd.getBytes());
-                try {
-                    Thread.sleep(30);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-//                lastCommand = cmd;
             } catch (IOException e) {
                 Log.e(TAG, "failed: " + e.getMessage());
             }

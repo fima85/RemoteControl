@@ -88,8 +88,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
                 joystick.reset();
                 joystick.redraw();
                 break;
-            case MotionEvent.ACTION_MOVE:
-            case MotionEvent.ACTION_DOWN:
+            default:
                 if (touchX != -1 && touchY != -1) {
                     joystick.tryToMove(touchX, touchY);
                 }
