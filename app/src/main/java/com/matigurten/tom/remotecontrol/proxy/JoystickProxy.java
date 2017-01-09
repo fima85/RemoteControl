@@ -19,14 +19,13 @@ public class JoystickProxy extends LogProxy {
     public JoystickProxy() {
     }
 
-    public static int INNER_R = 50, OUTER_R = 450;
 
     public int translate(double distance, double angle) {
-        if (distance < INNER_R) {
+        if (distance < SharedPref.INNER_R) {
             stop();
             return -1;
         } else {
-            boolean fast = distance > OUTER_R;
+            boolean fast = distance > SharedPref.OUTER_R;
             int code = (int) Math.floor(8 * (MathUtils.mod(angle + Math.PI / 8, Math.PI * 2) / (2 * Math.PI))) + (fast ? 8 : 0);
 //                Log.d("JOYSTICK", distance + " / " + angle + " / " + code);
                 switch (code % 8) {

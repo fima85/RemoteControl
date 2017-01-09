@@ -42,7 +42,7 @@ public class BLConn implements RemoteProxy {
     private Thread btThread;
 
     private String lastCommand = null;
-    private int waitTime = 99;
+    private int waitTime = 50;
 
     public void connect(final Context context) throws Exception {
 

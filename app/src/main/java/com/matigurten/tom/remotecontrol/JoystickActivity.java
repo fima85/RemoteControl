@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+import com.matigurten.tom.remotecontrol.common.SharedPref;
 import com.matigurten.tom.remotecontrol.proxy.JoystickProxy;
 import com.matigurten.util.BitmapUtils;
 
@@ -40,8 +41,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     private float touchX, touchY;
 
     private static int sleepTimeMillis = 1;
-    private int fieldRadius;
-    private int minRadius;
 
     private Double orientation;
     private double r0, a0;
@@ -70,9 +69,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         bigBmp = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
         stopBmp = BitmapUtils.shrinkBitmap(bigBmp, 0.5f);
 
-        minRadius = (int) r0;
-
-        fieldRadius = 450;
+        SharedPref.INNER_R = (int) r0;
 
         setContentView(joystick);
         joystick.reset();
@@ -210,12 +207,12 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
             c.drawARGB(255, 150, 150, 150);
             // fast oval
             double distance = getDistance();
-            c.drawArc(oval, 0, 360, true, distance > fieldRadius ? yellow : blue);
+            c.drawArc(oval, 0, 360, true, distance > SharedPref.OUTER_R ? yellow : blue);
             if (orientation != null && distance > 100) {
-                c.drawArc(oval, (float) (Math.toDegrees(orientation) - angularField / 2), (float) angularField, true, distance > fieldRadius ? red : green);
+                c.drawArc(oval, (float) (Math.toDegrees(orientation) - angularField / 2), (float) angularField, true, distance > SharedPref.OUTER_R ? red : green);
 
                 float quadrantAngleStart = (float) (Math.floor((Math.toDegrees(orientation) - 22.5f) / 45) * 45) + 22.5f;
-                c.drawArc(oval, quadrantAngleStart, 45, true, distance > fieldRadius ? red : green);
+                c.drawArc(oval, quadrantAngleStart, 45, true, distance > SharedPref.OUTER_R ? red : green);
             }
 
             c.drawBitmap(bitmap, src, dst, null);
@@ -253,7 +250,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
             double deltaR = Math.hypot(deltaX, deltaY);
             double deltaA = Math.atan2(deltaY, deltaX);
             double farAway = getDistance() / startPointX; // value between 0 and a bit above 1. overshooting rail
-            if (deltaR < minRadius) { //&& (orientation == null || MathUtils.angleDifferenceRad(azimuth, orientation) <= Math.toRadians(angularField))
+            if (deltaR < SharedPref.INNER_R) { //&& (orientation == null || MathUtils.angleDifferenceRad(azimuth, orientation) <= Math.toRadians(angularField))
                 try {
                     Thread.sleep(sleepTimeMillis);
                 } catch (InterruptedException e) {
@@ -286,11 +283,13 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         boolean isInit = false;
 
         private void reset(Canvas c) {
-            if (c != null && (startPointX == 0 || startPointY == 0)) {
-
+            if (c != null) { // && (startPointX == 0 || startPointY == 0)) {
                 startPointX = c.getWidth() / 2;
                 startPointY = c.getHeight() / 2;
-                oval.set(startPointX - fieldRadius, startPointY - fieldRadius, startPointX + fieldRadius, startPointY + fieldRadius);
+                SharedPref.OUTER_R = (int) Math.round(Math.min(c.getWidth(), c.getHeight()) / 2 * 0.8);
+                SharedPref.INNER_R = (int) Math.round(Math.min(c.getWidth(), c.getHeight()) / 2 * 0.2);
+                oval.set(startPointX - SharedPref.OUTER_R, startPointY - SharedPref.OUTER_R,
+                        startPointX + SharedPref.OUTER_R, startPointY + SharedPref.OUTER_R);
                 isInit = true;
             }
             centerX = startPointX;
@@ -306,8 +305,7 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         return;
     }
 }

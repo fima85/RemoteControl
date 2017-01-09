@@ -18,13 +18,14 @@ public class SharedPref {
     public static final String ADDRESS = "deviceAddress";
     public static final String RETMOTE_POSITION = "remotePosition";
     private static final String TAG = "SharedPref";
+    public static int INNER_R = 50, OUTER_R = 450;
 
-    public static final String[] remoteTypes = new String[] {
+    public static final String[] remoteTypes = new String[]{
             "RemoteControl",
             "JOYSTICK"
     };
 
-    public static final String[] remoteActivity = new String[] {
+    public static final String[] remoteActivity = new String[]{
             "RemoteControlActivity",
             "JoystickActivity"
     };
@@ -33,13 +34,14 @@ public class SharedPref {
         REMOTE_CONTROL,
         JOYSTICK
     }
-    public static int getRemotePos(Context context){
+
+    public static int getRemotePos(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int pos = prefs.getInt(RETMOTE_POSITION, 0);
         return pos;
     }
 
-    public static void setRemotePos(Context context, int remotePos){
+    public static void setRemotePos(Context context, int remotePos) {
 
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putInt(RETMOTE_POSITION, remotePos);
@@ -47,7 +49,7 @@ public class SharedPref {
         Log.d(TAG, RETMOTE_POSITION + " set with: " + remotePos);
     }
 
-    public static RemoteTypeEnum getRemoteType(Context context){
+    public static RemoteTypeEnum getRemoteType(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int pos = prefs.getInt(RETMOTE_POSITION, 0);
         Log.d(TAG, "getRemoteType: " + RemoteTypeEnum.values()[pos]);
