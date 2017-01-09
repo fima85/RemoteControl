@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
@@ -30,7 +31,7 @@ public abstract class ControllerActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -42,20 +43,32 @@ public abstract class ControllerActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         } else if (id == R.id.connect) {
+            final ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+            spinner.setVisibility(View.VISIBLE);
 
-            try {
-                BLConn.getInstance().connect(getApplicationContext());
-
-                item.setVisible(false);
-                item.setEnabled(false);
-
-                menu.findItem(R.id.disconnect).setEnabled(true);
-                menu.findItem(R.id.disconnect).setVisible(true);
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            }
+            BLConn.getInstance().connect(getApplicationContext(), new BLConn.BLUpdateCallback() {
+                @Override
+                public void onConnect(boolean success) {
+                    runOnUiThread(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                          if(BLConn.getInstance().isConnected()) {
+                                              item.setVisible(false);
+                                              item.setEnabled(false);
+                                              menu.findItem(R.id.disconnect).setEnabled(true);
+                                              menu.findItem(R.id.disconnect).setVisible(true);
+                                              spinner.setVisibility(View.GONE);
+                                              Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_LONG).show();
+                                          }
+                                          else{
+                                              spinner.setVisibility(View.GONE);
+                                              Toast.makeText(getApplicationContext(), "Failed to connect", Toast.LENGTH_LONG).show();
+                                          }
+                                      }
+                                  }
+                    );
+                }
+            });
         } else if (id == R.id.disconnect) {
             BLConn.getInstance().disconnect();
 

@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 
 public class RemoteControlActivity extends ControllerActivity {
 
@@ -12,9 +13,12 @@ public class RemoteControlActivity extends ControllerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         setContentView(R.layout.activity_remote_control);
         getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-
+        ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+        spinner.setVisibility(View.GONE);
         // Regular Buttons
         final View fButton = findViewById(R.id.fButton);
         fButton.setOnTouchListener(new View.OnTouchListener() {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        final ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+        spinner.setVisibility(View.GONE);
         // Getting object reference to listview of main.xml
         final ListView listView = (ListView) findViewById(R.id.remoteType);
 
@@ -108,13 +111,33 @@ public class SettingsActivity extends AppCompatActivity {
             editor.putString(BLConn.getInstance().ADDRESS, address);
             editor.commit();
 
-            Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
             BLConn blConn = BLConn.getInstance();
-            try {
-                blConn.connect(getApplicationContext());
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+
+            final ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+            spinner.setVisibility(View.VISIBLE);
+
+                blConn.connect(getApplicationContext(), new BLConn.BLUpdateCallback() {
+                    @Override
+                    public void onConnect(boolean success) {
+                        runOnUiThread(new Runnable() {
+                                          @Override
+                                          public void run() {
+
+                                              if(BLConn.getInstance().isConnected()) {
+
+                                                  Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_LONG).show();
+                                                  spinner.setVisibility(View.GONE);
+                                              }
+                                              else{
+                                                  Toast.makeText(getApplicationContext(), "Failed to connect", Toast.LENGTH_LONG).show();
+                                                  spinner.setVisibility(View.GONE);
+                                              }
+                                          }
+                                      }
+                        );
+                    }
+                });
         }
     };
 

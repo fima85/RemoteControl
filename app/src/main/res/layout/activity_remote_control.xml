@@ -16,6 +16,13 @@
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
 -->
+    <ProgressBar
+        android:id="@+id/spinner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -217,6 +224,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/brButton"
                     android:onClick="brButtonOnClick" />
+
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
