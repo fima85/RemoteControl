@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
         try {
             Thread.sleep(2000); //
         } catch (InterruptedException e) {
@@ -33,9 +34,5 @@ public class MainActivity extends Activity {
         Log.d(TAG, "starting activity " + remoteType.name());
         startActivity(new Intent(getApplicationContext(), remoteType.getActivityClass()));
     }
-
-    @Override
-    protected  void onPause(Bundle savedInstanceState) {
-
-    }
+    
 }

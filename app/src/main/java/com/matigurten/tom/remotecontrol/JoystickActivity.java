@@ -22,7 +22,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
@@ -76,16 +75,11 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
         fieldRadius = 450;
 
         setContentView(joystick);
+        joystick.reset();
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-//        try {
-//            Thread.sleep(sleep);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
         touchX = event.getX();
         touchY = event.getY();
 
@@ -98,8 +92,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
             case MotionEvent.ACTION_DOWN:
                 if (touchX != -1 && touchY != -1) {
                     joystick.tryToMove(touchX, touchY);
-//                    azimuthTV.setText(azimuth + "");
-//                    distanceTV.setText(distance + "");
                 }
         }
 
@@ -191,7 +183,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            reset();
             thread.start();
         }
 
@@ -278,8 +269,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
                 angularField = (1 - farAway) * 180 + farAway * angularField0;
                 double focus = Math.pow((Math.abs(orientation % (Math.PI / 4)) / (Math.PI / 4)) * 2 - 1, 2);
                 angularField = angularField0 * focus;
-            } else {
-                reset();
             }
         }
 

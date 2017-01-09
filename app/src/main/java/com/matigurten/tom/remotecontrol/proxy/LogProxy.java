@@ -5,11 +5,9 @@ import android.util.Log;
 /**
  * Created by Mati on 25/12/2016.
  */
-
 public class LogProxy implements RemoteProxy {
     @Override
     public void fl(boolean fast) {
-
         Log.d("Proxy", "fl" + (fast ? " fast" : ""));
     }
 
