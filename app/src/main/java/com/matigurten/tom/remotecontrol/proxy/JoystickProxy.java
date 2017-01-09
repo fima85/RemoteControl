@@ -28,7 +28,7 @@ public class JoystickProxy extends LogProxy {
             boolean fast = distance > 450;
             int code = (int) Math.floor(8 * (MathUtils.mod(angle + Math.PI / 8, Math.PI * 2) / (2 * Math.PI))) + (fast ? 8 : 0);
             if (code != lastCode) {
-//                Log.d("Joystick", distance + " / " + angle + " / " + code);
+//                Log.d("JOYSTICK", distance + " / " + angle + " / " + code);
                 switch (code % 8) {
                     case 0:
                         btProxy.r(fast);

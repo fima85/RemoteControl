@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
+import com.matigurten.tom.remotecontrol.RemoteTypeEnum;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -21,7 +21,7 @@ public class SharedPref {
 
     public static final String[] remoteTypes = new String[] {
             "RemoteControl",
-            "Joystick"
+            "JOYSTICK"
     };
 
     public static final String[] remoteActivity = new String[] {
@@ -29,6 +29,10 @@ public class SharedPref {
             "JoystickActivity"
     };
 
+    public enum RemoteType {
+        REMOTE_CONTROL,
+        JOYSTICK
+    }
     public static int getRemotePos(Context context){
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int pos = prefs.getInt(RETMOTE_POSITION, 0);
@@ -43,10 +47,10 @@ public class SharedPref {
         Log.d(TAG, RETMOTE_POSITION + " set with: " + remotePos);
     }
 
-    public static String getRemoteType(Context context){
+    public static RemoteTypeEnum getRemoteType(Context context){
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int pos = prefs.getInt(RETMOTE_POSITION, 0);
-
-        return remoteActivity[pos];
+        Log.d(TAG, "getRemoteType: " + RemoteTypeEnum.values()[pos]);
+        return RemoteTypeEnum.values()[pos];
     }
 }

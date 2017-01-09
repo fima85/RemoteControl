@@ -51,7 +51,9 @@ public class BLConn implements RemoteProxy {
                 address = prefs.getString(ADDRESS, null);
                 appContext = context;
                 if (address == null) {
-                    throw new Error("need to set device address");
+                    Log.d(TAG, "no address to connect to");
+//                    throw new Exception("missing address");
+                    return;
                 }
                 try {
                     if (btConn == null || !isBtConnected) {
@@ -71,6 +73,7 @@ public class BLConn implements RemoteProxy {
                     error = e.getMessage();
                     isError = false;
                     Log.e(TAG, e.getMessage());
+//                    throw new Exception("missing address");
 //           ConnectSuccess = false;//if the try failed, you can check the exception here
                 }
             }
