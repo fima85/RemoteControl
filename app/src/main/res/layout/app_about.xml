@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:text="https://github.com/fima85/RemoteControl"
+    <LinearLayout
+        android:id="@+id/About"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/aboutText" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:fitsSystemWindows="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/aboutText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
+
+        <TextView
+            android:id="@+id/participantsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
 </LinearLayout>

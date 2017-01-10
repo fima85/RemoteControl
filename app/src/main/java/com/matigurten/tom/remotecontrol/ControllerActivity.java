@@ -1,7 +1,6 @@
 package com.matigurten.tom.remotecontrol;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -23,7 +22,7 @@ public abstract class ControllerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
-        ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+        ProgressBar spinner = (ProgressBar) findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
     }
@@ -55,18 +54,13 @@ public abstract class ControllerActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.connect) {
 
-//            final ProgressBar spinner = (ProgressBar) findViewById(R.id.spinner);
-//            if(this instanceof RemoteControlActivity) {
-//                spinner.setVisibility(View.VISIBLE);
-//            }
-
             BLConn.getInstance().connect(getApplicationContext(), new BLConn.BLUpdateCallback() {
                 @Override
                 public void onConnect(boolean success) {
                     runOnUiThread(new Runnable() {
                                       @Override
                                       public void run() {
-                                          if(BLConn.getInstance().isConnected()) {
+                                          if (BLConn.getInstance().isConnected()) {
                                               item.setVisible(false);
                                               item.setEnabled(false);
                                               menu.findItem(R.id.disconnect).setEnabled(true);
@@ -75,8 +69,7 @@ public abstract class ControllerActivity extends AppCompatActivity {
 //                                                  spinner.setVisibility(View.GONE);
 //                                              }
                                               Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_LONG).show();
-                                          }
-                                          else{
+                                          } else {
 //                                              spinner.setVisibility(View.GONE);
                                               Toast.makeText(getApplicationContext(), "Failed to connect", Toast.LENGTH_LONG).show();
                                           }
@@ -169,8 +162,8 @@ public abstract class ControllerActivity extends AppCompatActivity {
         remote.br(true);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        return;
-//    }
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }
