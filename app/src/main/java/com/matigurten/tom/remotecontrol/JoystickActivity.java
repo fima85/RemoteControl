@@ -5,7 +5,6 @@ package com.matigurten.tom.remotecontrol;
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,17 +15,13 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import com.matigurten.tom.remotecontrol.bluetooth.BLConn;
 import com.matigurten.tom.remotecontrol.common.SharedPref;
 import com.matigurten.tom.remotecontrol.proxy.JoystickProxy;
 import com.matigurten.util.BitmapUtils;
@@ -35,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class JoystickActivity extends AppCompatActivity implements View.OnTouchListener {
+public class JoystickActivity extends ControllerActivity implements View.OnTouchListener {
 
     private Joystick joystick;
     private Bitmap arrowBmp, stopBmp;
@@ -53,12 +48,9 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            BLConn.getInstance().connect(getApplicationContext());
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-        }
+        setContentView(R.layout.activity_joystick);
+//        ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+//        spinner.setVisibility(View.GONE);
 
         joystick = new Joystick(JoystickActivity.this);
         joystick.setOnTouchListener(this);
@@ -87,12 +79,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-//        // Checks the orientation of the screen
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-//            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
-//        }
         joystick.isInit = false;
         setContentView(joystick);
         new Handler().postDelayed(new Runnable() {
@@ -119,7 +105,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
                     joystick.tryToMove(touchX, touchY);
                 }
         }
-
         return true;
     }
 
@@ -133,59 +118,6 @@ public class JoystickActivity extends AppCompatActivity implements View.OnTouchL
     protected void onResume() {
         super.onResume();
         joystick.resume();
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        this.menu = menu;
-        menu.findItem(R.id.connect).setEnabled(!BLConn.getInstance().isConnected());
-        menu.findItem(R.id.connect).setVisible(!BLConn.getInstance().isConnected());
-
-        menu.findItem(R.id.disconnect).setEnabled(BLConn.getInstance().isConnected());
-        menu.findItem(R.id.disconnect).setVisible(BLConn.getInstance().isConnected());
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.activity_settings) {
-            startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
-            return true;
-        } else if(id == R.id.connect){
-
-            try {
-                BLConn.getInstance().connect(getApplicationContext());
-
-                item.setVisible(false);
-                item.setEnabled(false);
-
-                menu.findItem(R.id.disconnect).setEnabled(true);
-                menu.findItem(R.id.disconnect).setVisible(true);
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            }
-        } else if(id == R.id.disconnect){
-            BLConn.getInstance().disconnect();
-
-            item.setVisible(false);
-            item.setEnabled(false);
-
-            menu.findItem(R.id.connect).setEnabled(true);
-            menu.findItem(R.id.connect).setVisible(true);
-
-
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public class Joystick extends SurfaceView implements Runnable {

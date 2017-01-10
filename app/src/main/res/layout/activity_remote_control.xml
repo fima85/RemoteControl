@@ -1,9 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="@color/black_overlay"
     tools:context="com.matigurten.tom.remotecontrol.RemoteControlActivity">
 
 <!--
@@ -16,6 +15,13 @@
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
 -->
+    <ProgressBar
+        android:id="@+id/spinner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -143,19 +149,19 @@
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
                 <Button
-                    android:text="Forward Left"
+                    android:background="@drawable/forward_left_arrow_2"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/flButton"
                     android:onClick="flButtonOnClick" />
                 <Button
-                    android:text="Forward"
+                    android:background="@drawable/forward_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/fButton"
                     android:onClick="fButtonOnClick" />
                 <Button
-                    android:text="Forward Right"
+                    android:background="@drawable/forward_right_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/frButton"
@@ -169,10 +175,9 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/black_overlay"
                 android:orientation="horizontal"
-
                 tools:ignore="UselessParent">
                 <Button
-                    android:text="Left"
+                    android:background="@drawable/left_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/lButton"
@@ -182,14 +187,14 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/stopButton"
+                    android:layout_gravity="top"
                     android:onClick="stopButtonOnClick" />
                 <Button
-                    android:text="Right"
+                    android:background="@drawable/right_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/rButton"
                     android:onClick="rButtonOnClick" />
-
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/backButtons"
@@ -201,24 +206,24 @@
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
                 <Button
-                    android:text="Back Left"
+                    android:background="@drawable/back_left_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/blButton"
                     android:onClick="blButtonOnClick" />
                 <Button
-                    android:text="Back"
+                    android:background="@drawable/back_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/bButton"
                     android:onClick="bButtonOnClick" />
-
                 <Button
-                    android:text="Back Right"
+                    android:background="@drawable/back_right_arrow"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/brButton"
                     android:onClick="brButtonOnClick" />
+
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

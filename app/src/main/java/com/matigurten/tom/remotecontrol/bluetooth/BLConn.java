@@ -19,6 +19,9 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by fima on 05/01/17.
  */
 public class BLConn extends LogProxy {
+    public interface BLUpdateCallback {
+        public void onConnect(boolean success);
+    }
     private static BLConn ourInstance = new BLConn();
 
     BluetoothAdapter myBluetooth = null;
@@ -42,7 +45,7 @@ public class BLConn extends LogProxy {
     private String lastCommand = null;
     private int waitTime = 100;
 
-    public void connect(final Context context) throws Exception {
+    public void connect(final Context context, final BLUpdateCallback callback) {
 
         btThread = new Thread(new Runnable() {
             @Override
@@ -68,10 +71,15 @@ public class BLConn extends LogProxy {
                     error = e.getMessage();
                     isError = false;
                     Log.e(TAG, e.getMessage());
+
+                    callback.onConnect(false);
+                    return;
+
 //                    throw new Exception("missing address");
 //           ConnectSuccess = false;//if the try failed, you can check the exception here
-                } finally {
-                    isBtConnected = true;
+                }
+//                    isBtConnected = true;
+                callback.onConnect(true);
                     while (isBtConnected) {
                         sendCommand(lastCommand);
                         try {
@@ -80,7 +88,7 @@ public class BLConn extends LogProxy {
                             e.printStackTrace();
                         }
                     }
-                }
+
             }
         });
         btThread.start();
