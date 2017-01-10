@@ -23,6 +23,7 @@ public class AboutActivity extends AppCompatActivity {
         String text = "<a href='https://github.com/fima85/RemoteControl'>Join us on GitHub!</a>";
         gitHub.setText(Html.fromHtml(text));
         gitHub.setTextSize(30);
+        gitHub.setFont
         gitHub.setGravity(Gravity.CENTER);
 
         TextView participants = (TextView) findViewById(R.id.participantsText);
