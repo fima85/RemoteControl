@@ -28,9 +28,9 @@ public class AboutActivity extends AppCompatActivity {
         TextView participants = (TextView) findViewById(R.id.participantsText);
         participants.setClickable(true);
         participants.setMovementMethod(LinkMovementMethod.getInstance());
-        String android = "Android \n\tfima85@gmail.com\n\tmatigurten@gmail.com";
-        String solidWorks = "Solid \n\tnvinshtokmelnik@gmail.com\n\tyonatan.schachter@gmail.com\n\tmaorfarid@gmail.com";
-        String arduino = "Arduino \n\tidantim@gmail.com\n\tefiha@netvision.net.il";
+        String android = "Android \n\t\t\tfima85@gmail.com\n\t\t\tmatigurten@gmail.com";
+        String solidWorks = "Solid \n\t\t\tnvinshtokmelnik@gmail.com\n\t\t\tyonatan.schachter@gmail.com\n\t\t\tmaorfarid@gmail.com";
+        String arduino = "Arduino \n\t\t\tidantim@gmail.com\n\t\t\teffiha@netvision.net.il";
         participants.setText(android + "\n\n" + solidWorks + "\n\n" + arduino);
         participants.setTextSize(20);
         participants.setGravity(Gravity.LEFT);
