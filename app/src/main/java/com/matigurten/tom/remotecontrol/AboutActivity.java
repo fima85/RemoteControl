@@ -1,5 +1,6 @@
 package com.matigurten.tom.remotecontrol;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -23,7 +24,8 @@ public class AboutActivity extends AppCompatActivity {
         String text = "<a href='https://github.com/fima85/RemoteControl'>Join us on GitHub!</a>";
         gitHub.setText(Html.fromHtml(text));
         gitHub.setTextSize(30);
-        gitHub.setFont
+//        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/arial.ttf");
+//        gitHub.setTypeface(type);
         gitHub.setGravity(Gravity.CENTER);
 
         TextView participants = (TextView) findViewById(R.id.participantsText);
@@ -35,5 +37,6 @@ public class AboutActivity extends AppCompatActivity {
         participants.setText(android + "\n\n" + solidWorks + "\n\n" + arduino);
         participants.setTextSize(20);
         participants.setGravity(Gravity.LEFT);
+//        participants.setMaGravity(Gravity.LEFT);
     }
 }
