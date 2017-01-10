@@ -1,6 +1,8 @@
 package com.matigurten.tom.remotecontrol;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,15 @@ public abstract class ControllerActivity extends AppCompatActivity {
 
     RemoteProxy remote = BLConn.getInstance();
     private Menu menu;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_controller);
+        ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+        spinner.setVisibility(View.GONE);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,8 +54,11 @@ public abstract class ControllerActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         } else if (id == R.id.connect) {
-            final ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
-            spinner.setVisibility(View.VISIBLE);
+
+//            final ProgressBar spinner = (ProgressBar) findViewById(R.id.spinner);
+//            if(this instanceof RemoteControlActivity) {
+//                spinner.setVisibility(View.VISIBLE);
+//            }
 
             BLConn.getInstance().connect(getApplicationContext(), new BLConn.BLUpdateCallback() {
                 @Override
@@ -57,11 +71,13 @@ public abstract class ControllerActivity extends AppCompatActivity {
                                               item.setEnabled(false);
                                               menu.findItem(R.id.disconnect).setEnabled(true);
                                               menu.findItem(R.id.disconnect).setVisible(true);
-                                              spinner.setVisibility(View.GONE);
+//                                              if(this instanceof RemoteControlActivity) {
+//                                                  spinner.setVisibility(View.GONE);
+//                                              }
                                               Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_LONG).show();
                                           }
                                           else{
-                                              spinner.setVisibility(View.GONE);
+//                                              spinner.setVisibility(View.GONE);
                                               Toast.makeText(getApplicationContext(), "Failed to connect", Toast.LENGTH_LONG).show();
                                           }
                                       }

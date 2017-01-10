@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.matigurten.tom.remotecontrol.common.SharedPref;
 import com.matigurten.tom.remotecontrol.proxy.JoystickProxy;
@@ -46,6 +47,10 @@ public class JoystickActivity extends ControllerActivity implements View.OnTouch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_joystick);
+//        ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+//        spinner.setVisibility(View.GONE);
 
         joystick = new Joystick(JoystickActivity.this);
         joystick.setOnTouchListener(this);

@@ -13,9 +13,8 @@ public class RemoteControlActivity extends ControllerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         setContentView(R.layout.activity_remote_control);
+
         getWindow().getDecorView().setBackgroundColor(Color.BLACK);
         ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
